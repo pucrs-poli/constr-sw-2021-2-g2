@@ -22,7 +22,7 @@ router.get('/:id',
 router.post('/',
     authHandler,
     async (req, res, _) => {
-        let { status, out } = await studentsController.post(req.body);
+        let { status, out } = await studentsController.register(req.body);
         return res.status(status).json(out);
     }
 );
@@ -50,7 +50,7 @@ router.patch('/:id',
 router.delete('/:id',
     authHandler,
     async (req, res, _) => {
-        let { status, out } = await studentsController.delete(req.params.id);
+        let { status, out } = await studentsController.remove(req.params.id);
         if (status != 204)
             return res.json(status).json(out);
         return res.status(status);
