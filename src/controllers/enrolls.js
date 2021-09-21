@@ -1,65 +1,62 @@
-const enrollsService = require("../services/enrolls");
+const Enroll = require("../models/enrolls");
+var ObjectID = require('mongodb').ObjectID;
 
 
-
-async function getAll() {
-    return { status: 200, out: await enrollsService.getAll() }
+async function getAll(studentId, filters) {
+    return { status: 200, data: await Enroll.find({ studentId: ObjectID(studentId), ...filters }) }
 
 }
 
-
-async function get(id) {
-    let out = await enrollsService.get(id);
-
-    let status;
-    if (out.error)
-        status = 404
-    else
-        status = 200;
-
-    return { status, out: out.data }
+async function get(studentId, id) {
+    return await Enroll.findOne({studentId: ObjectID(studentId), _id: id})
+        .then(val => {
+            if (val)
+                return { status: 200, data: val };
+            return { status: 404, data: 'id not found' }
+        })
+        .catch(err => {
+            return { statu: 500, data: err.message };
+        });
 }
 
+async function register(studentId, { semester, classId }) {
+    // Test code
+    classId = new ObjectID();
 
-async function register({ semester, classId, studentId }) {
-    // Do get request to make sure class exists
-
-    let out = await enrollsService.register({ semester, classId, studentId });
-
-    let status;
-    if (out.error)
-        status = 400
-    else
-        status = 200
-
-    return { status, out: out.data }
+    return await Enroll.create({ semester, studentId, classId })
+        .then(_ => {
+            return { status: 204 };
+        })
+        .catch(err => {
+            if (err.code === 11000) {
+                return { status: 400, data: 'duplicate email' };
+            }
+            return { status: 500, data: err.message };
+        });
 }
 
-
-async function update(id, updateDict) {
-    let out = await enrollsService.update(id, updateDict);
-
-    let status;
-    if (out.error)
-        status = 400
-    else
-        status = 200
-
-    return { status, out: out.data }
+async function update(studentId, id, updateDict) {
+    return await Enroll.findOneAndUpdate({ _id: id, studentId: ObjectID(studentId) }, updateDict, { new: true })
+        .then(val => {
+            if (val)
+                return { status: 204 };
+            return { status: 404, data: 'id not found' }
+        })
+        .catch(err => {
+            return { status: 500, data: err.message };
+        });
 }
 
-
-async function remove(id) {
-    let out = await enrollsService.remove(id);
-
-    let status;
-    if (out.error)
-        status = 400
-    else
-        status = 200
-
-    return { status, out: out.data }
+async function remove(studentId, id) {
+    return await Enroll.findOneAndRemove({ _id: id, studentId: ObjectID(studentId) })
+        .then(val => {
+            if (val)
+                return { status: 204 }
+            return { status: 404, data: 'id not found' }
+        })
+        .catch(err => {
+            return { status: 500, data: err.message };
+        });
 }
-
 
 module.exports = { getAll, get, register, update, remove };

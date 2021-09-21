@@ -1,65 +1,58 @@
-const studentsService = require("../services/students");
+const Student = require("../models/students");
 
 
-
-async function getAll() {
-    return { status: 200, out: await studentsService.getAll() }
+async function getAll(filters) {
+    return { status: 200, data: await Student.find(filters) }
 
 }
-
 
 async function get(id) {
-    let out = await studentsService.get(id);
-
-    let status;
-    if (out.error)
-        status = 404
-    else
-        status = 200;
-
-    return { status, out: out.data }
+    return await Student.findById(id)
+        .then(val => {
+            if (val)
+                return { status: 200, data: val };
+            return { status: 404, data: 'id not found' }
+        })
+        .catch(err => {
+            return { statu: 500, data: err.message };
+        });
 }
-
 
 async function register({ name, email, birthday, phone }) {
-    // Do get request do make sure class exists
-
-    let out = await studentsService.register({ name, email, birthday, phone });
-
-    let status;
-    if (out.error)
-        status = 400
-    else
-        status = 200
-
-    return { status, out: out.data }
+    return await Student.create({ name, email, birthday, phone })
+        .then(_ => {
+            return { status: 204 };
+        })
+        .catch(err => {
+            if (err.code === 11000) {
+                return { status: 400, data: 'duplicate email' };
+            }
+            return { status: 500, data: err.message };
+        });
 }
-
 
 async function update(id, updateDict) {
-    let out = await studentsService.update(id, updateDict);
-
-    let status;
-    if (out.error)
-        status = 400
-    else
-        status = 200
-
-    return { status, out: out.data }
+    return await Student.findOneAndUpdate({ _id: id }, updateDict, { new: true })
+        .then(val => {
+            if (val)
+                return { status: 204 };
+            return { status: 404, data: 'id not found' }
+        })
+        .catch(err => {
+            return { status: 500, data: err.message };
+        });
 }
-
 
 async function remove(id) {
-    let out = await studentsService.remove(id);
-
-    let status;
-    if (out.error)
-        status = 400
-    else
-        status = 200
-
-    return { status, out: out.data }
+    return await Student.findOneAndRemove({ _id: id })
+        .then(val => {
+            if (val)
+                return { status: 204 }
+            return { status: 404, data: 'id not found' }
+        })
+        .catch(err => {
+            return { status: 500, data: err.message };
+        });
 }
-
 
 module.exports = { getAll, get, register, update, remove };

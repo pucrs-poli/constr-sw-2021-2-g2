@@ -3,24 +3,17 @@ const mongoose = require("mongoose");
 
 const EnrollSchema = new mongoose.Schema(
     {
-        semester: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        classId: {
-            type: mongoose.Types.ObjectId,
-            required: true
-        },
-        studentId: {
-            type: mongoose.Types.ObjectId,
-            required: true
-        }
+        semester: String,
+        classId: mongoose.Types.ObjectId,
+        studentId: mongoose.Types.ObjectId,
     },
     {
-        timestamps: false
+        timestamps: false,
+        versionKey: false
     }
 );
+
+EnrollSchema.index({ semester: 1, classId: 1, studentId: 1 }, { unique: true });
 
 
 module.exports = mongoose.model("Enrolls", EnrollSchema);

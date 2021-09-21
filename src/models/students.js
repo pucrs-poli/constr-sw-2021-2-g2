@@ -3,27 +3,18 @@ const mongoose = require("mongoose");
 
 const StudentSchema = new mongoose.Schema(
     {
-        name: {
-            type: String,
-            required: true
-        },
+        name: String,
         email: {
             type: String,
             required: true,
             unique: true
         },
-        birthday: {
-            type: Date,
-            required: true
-        },
-        phone: {
-            type: String,
-            required: true,
-            match: /\+\d{2}\(\d{2}\)\d{5}-\d{4}/
-        }
+        birthday: Date,
+        phone: String,
     },
     {
-        timestamps: false
+        timestamps: false,
+        versionKey: false,
     }
 );
 

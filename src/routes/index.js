@@ -5,7 +5,7 @@ const enroll = require('./enrolls');
 const router = express.Router();
 
 router.use('/alunos', students);
-router.use('/alunos/:student_id/matriculas', enroll);
+router.use('/alunos/:studentId/matriculas', enroll);
 
 
 module.exports = router;
