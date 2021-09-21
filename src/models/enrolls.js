@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 
 const EnrollSchema = new mongoose.Schema(
@@ -16,4 +16,4 @@ const EnrollSchema = new mongoose.Schema(
 EnrollSchema.index({ semester: 1, classId: 1, studentId: 1 }, { unique: true });
 
 
-module.exports = mongoose.model("Enrolls", EnrollSchema);
+module.exports = mongoose.model('Enrolls', EnrollSchema);
