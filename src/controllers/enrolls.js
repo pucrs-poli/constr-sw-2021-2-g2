@@ -87,7 +87,7 @@ async function checkClass(classId) {
         username: config.classUsername,
         password: config.classPassword
     }
-    let resp = await axios.post(config.classURL, authParams)
+    let resp = await axios.post(`${config.classURL}/login`, authParams)
     let cookie = resp.headers["set-cookie"][0]
     axiosInstance.defaults.headers.Cookie = cookie
 
