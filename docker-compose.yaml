@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+
+  mongodb:
+    image: bitnami/mongodb:4.4.8
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_DATABASE: bookdb
+      MONGODB_USERNAME: bookuser
+      MONGODB_PASSWORD: bookpass
+      MONGODB_ROOT_PASSWORD: secret
+
+  keycloak:
+    image: jboss/keycloak:15.0.2
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: h2
