@@ -28,10 +28,10 @@ router.post('/',
 );
 
 router.put('/:id',
-    authHandler,    
+    authHandler,
     async (req, res, _) => {
         let { status, out } = await enrollsController.update(req.params.id, req.body);
-        if(status != 204)
+        if (status != 204)
             return res.json(status).json(out);
         return res.status(status);
     }
@@ -41,7 +41,7 @@ router.patch('/:id',
     authHandler,
     async (req, res, _) => {
         let { status, out } = await enrollsController.update(req.params.id, req.body);
-        if(status != 204)
+        if (status != 204)
             return res.json(status).json(out);
         return res.status(status);
     }
@@ -51,7 +51,7 @@ router.delete('/:id',
     authHandler,
     async (req, res, _) => {
         let { status, out } = await enrollsController.remove(req.params.id);
-        if(status != 204)
+        if (status != 204)
             return res.json(status).json(out);
         return res.status(status);
     }
