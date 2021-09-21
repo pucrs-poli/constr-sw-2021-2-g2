@@ -1,0 +1,9 @@
+curl -O https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.4.2.tgz
+tar -zxvf mongodb-osx-x86_64-3.4.2.tgz
+mkdir -p mongodb
+cp -R -n mongodb-osx-x86_64-3.4.2/ mongodb
+export PATH=/mongodb/bin:$PATH
+mongod --dbpath c:/constr-sw-2021-2-g2/data
+
+mongo
+use constr-sw-2021-2-g2
