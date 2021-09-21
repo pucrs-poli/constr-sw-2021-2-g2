@@ -8,4 +8,4 @@ module.exports = {
     classURL: process.env.CLASS_URL,
     classUsername: process.env.CLASS_USERNAME,
     classPassword: process.env.CLASS_PASSWORD
-};
+}

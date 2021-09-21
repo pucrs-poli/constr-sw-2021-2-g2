@@ -1,9 +1,9 @@
-const express = require('express');
-const authHandler = require('../middlewares/auth');
-const enrollsController = require('../controllers/enrolls');
-const { body, param, query, validationResult } = require('express-validator');
+const express = require('express')
+const authHandler = require('../middlewares/auth')
+const enrollsController = require('../controllers/enrolls')
+const { body, param, query, validationResult } = require('express-validator')
 
-const router = express.Router({ mergeParams: true });
+const router = express.Router({ mergeParams: true })
 
 
 router.get('/',
@@ -12,30 +12,30 @@ router.get('/',
     query('semester').isString().optional(),
     query('classId').isString().optional(),
     async (req, res, _) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await enrollsController.getAll(req.params.studentId, req.query);
-        return res.status(status).json({ data });
+        let { status, data } = await enrollsController.getAll(req.params.studentId, req.query)
+        return res.status(status).json({ data })
     }
-);
+)
 
 router.get('/:id',
     authHandler,
     param('studentId').isString(),
     param('id').isString(),
     async (req, res, _) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await enrollsController.get(req.params.studentId, req.params.id);
-        return res.status(status).json({ data });
+        let { status, data } = await enrollsController.get(req.params.studentId, req.params.id)
+        return res.status(status).json({ data })
     }
-);
+)
 
 router.post('/',
     authHandler,
@@ -43,15 +43,15 @@ router.post('/',
     body('semester').isString(),
     body('classId').isString(),
     async (req, res, _) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await enrollsController.register(req.params.studentId, req.body);
-        return res.status(status).json({ data });
+        let { status, data } = await enrollsController.register(req.params.studentId, req.body)
+        return res.status(status).json({ data })
     }
-);
+)
 
 router.put('/:id',
     authHandler,
@@ -61,15 +61,15 @@ router.put('/:id',
     body('studentId').isString(),
     body('classId').isString(),
     async (req, res, _) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await enrollsController.update(req.params.studentId, req.params.id, req.body);
-        return res.status(status).json({ data });
+        let { status, data } = await enrollsController.update(req.params.studentId, req.params.id, req.body)
+        return res.status(status).json({ data })
     }
-);
+)
 
 router.patch('/:id',
     authHandler,
@@ -79,29 +79,29 @@ router.patch('/:id',
     body('studentId').isString().optional(),
     body('classId').isString().optional(),
     async (req, res, _) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await enrollsController.update(req.params.studentId, req.params.id, req.body);
-        return res.status(status).json({ data });
+        let { status, data } = await enrollsController.update(req.params.studentId, req.params.id, req.body)
+        return res.status(status).json({ data })
     }
-);
+)
 
 router.delete('/:id',
     authHandler,
     param('studentId').isString(),
     param('id').isString(),
     async (req, res, _) => {
-        const errors = validationResult(req);
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await enrollsController.remove(req.params.studentId, req.params.id);
-        return res.status(status).json({ data });
+        let { status, data } = await enrollsController.remove(req.params.studentId, req.params.id)
+        return res.status(status).json({ data })
     }
-);
+)
 
-module.exports = router;
+module.exports = router

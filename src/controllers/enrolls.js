@@ -1,10 +1,10 @@
-const ObjectID = require('mongodb').ObjectID;
-const Enroll = require('../models/enrolls');
-const config = require('../config/env');
-const studentsController = require('./students');
+const ObjectID = require('mongodb').ObjectID
+const Enroll = require('../models/enrolls')
+const config = require('../config/env')
+const studentsController = require('./students')
 
 
-const axiosInstance = require('axios').create({ baseUrl: config.classURL });
+const axiosInstance = require('axios').create({ baseUrl: config.classURL })
 
 
 async function getAll(studentId, filters) {
@@ -16,16 +16,16 @@ async function get(studentId, id) {
     return await Enroll.findOne({ studentId: ObjectID(studentId), _id: id })
         .then(val => {
             if (val)
-                return { status: 200, data: val };
+                return { status: 200, data: val }
             return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
         })
         .catch(err => {
-            return { statu: 500, data: err.message };
-        });
+            return { statu: 500, data: err.message }
+        })
 }
 
 async function register(studentId, { semester, classId }) {
-    let { status, data } = await studentsController.get(studentId);
+    let { status, data } = await studentsController.get(studentId)
     if (status !== 200)
         return { status, data }
 
@@ -34,19 +34,19 @@ async function register(studentId, { semester, classId }) {
 
     return await Enroll.create({ semester, studentId, classId })
         .then(_ => {
-            return { status: 204 };
+            return { status: 204 }
         })
         .catch(err => {
             if (err.code === 11000)
-                return { status: 400, data: 'duplicate entry' };
+                return { status: 400, data: 'duplicate entry' }
 
-            return { status: 500, data: err.message };
-        });
+            return { status: 500, data: err.message }
+        })
 }
 
 async function update(studentId, id, updateDict) {
     if (updateDict.studentId) {
-        let { status, data } = await studentsController.get(updateDict.studentId);
+        let { status, data } = await studentsController.get(updateDict.studentId)
         if (status !== 200)
             return { status, data }
     }
@@ -58,15 +58,15 @@ async function update(studentId, id, updateDict) {
     return await Enroll.findOneAndUpdate({ studentId: ObjectID(studentId), _id: id }, updateDict, { new: true })
         .then(val => {
             if (val)
-                return { status: 204 };
+                return { status: 204 }
             return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
         })
         .catch(err => {
             if (err.code === 11000)
-                return { status: 400, data: 'duplicate entry' };
+                return { status: 400, data: 'duplicate entry' }
 
-            return { status: 500, data: err.message };
-        });
+            return { status: 500, data: err.message }
+        })
 }
 
 async function remove(studentId, id) {
@@ -77,8 +77,8 @@ async function remove(studentId, id) {
             return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
         })
         .catch(err => {
-            return { status: 500, data: err.message };
-        });
+            return { status: 500, data: err.message }
+        })
 }
 
 
@@ -86,20 +86,20 @@ async function checkClass(classId) {
     let authParams = {
         username: config.classUsername,
         password: config.classPassword
-    };
-    let resp = await axios.post(config.classURL, authParams);
-    let cookie = resp.headers["set-cookie"][0];
-    axiosInstance.defaults.headers.Cookie = cookie;
+    }
+    let resp = await axios.post(config.classURL, authParams)
+    let cookie = resp.headers["set-cookie"][0]
+    axiosInstance.defaults.headers.Cookie = cookie
 
     return await axiosInstance.get(`${config.classURL}/${classId}`, { responseType: 'json' })
         .then(res => {
             if (res.statusCode === 200)
-                return true;
-            return false;
+                return true
+            return false
         })
         .catch(_ => {
             return false
         })
 }
 
-module.exports = { getAll, get, register, update, remove };
+module.exports = { getAll, get, register, update, remove }
