@@ -7,6 +7,6 @@ router.post('/',
     async (req, res) => {
         req.session.logged = true;
 
-        return res.status(204).json();
+        return res.status(204).json()
     }
 )
