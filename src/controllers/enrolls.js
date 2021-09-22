@@ -20,7 +20,7 @@ async function get(studentId, id) {
             return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
         })
         .catch(err => {
-            return { statu: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
@@ -29,8 +29,11 @@ async function register(studentId, { semester, classId }) {
     if (status !== 200)
         return { status, data }
 
-    if (!checkClass(classId))
-        return { status: 404, data: `class not found with id=${classId}` }
+    // if (!checkClass(classId))
+    //     return { status: 404, data: `class not found with id=${classId}` }
+
+    // test code
+    classId = new ObjectID();
 
     return await Enroll.create({ semester, studentId, classId })
         .then(_ => {
@@ -40,7 +43,7 @@ async function register(studentId, { semester, classId }) {
             if (err.code === 11000)
                 return { status: 400, data: 'duplicate entry' }
 
-            return { status: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
@@ -65,7 +68,7 @@ async function update(studentId, id, updateDict) {
             if (err.code === 11000)
                 return { status: 400, data: 'duplicate entry' }
 
-            return { status: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
@@ -77,7 +80,7 @@ async function remove(studentId, id) {
             return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
         })
         .catch(err => {
-            return { status: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 

@@ -14,7 +14,7 @@ async function get(id) {
             return { status: 404, data: `student not found with id=${id}` }
         })
         .catch(err => {
-            return { statu: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
@@ -27,7 +27,7 @@ async function register({ name, email, birthday, phone }) {
             if (err.code === 11000)
                 return { status: 400, data: 'duplicate email' }
 
-            return { status: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
@@ -42,7 +42,7 @@ async function update(id, updateDict) {
             if (err.code === 11000)
                 return { status: 400, data: 'duplicate email' }
 
-            return { status: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
@@ -54,7 +54,7 @@ async function remove(id) {
             return { status: 404, data: `student not found with id=${id}` }
         })
         .catch(err => {
-            return { status: 500, data: err.message }
+            return { status: 400, data: err.message }
         })
 }
 
