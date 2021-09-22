@@ -7,8 +7,8 @@ const memoryStore = new session.MemoryStore()
 let keycloakConfig = {
     clientId: config.keycloakClientId,
     bearerOnly: true,
-    serverUrl: 'http://config.API_URL:8080/auth',
-    realm: 'Demo-Realm',
+    serverUrl: `http://${config.API_URL}:8080/auth`,
+    realm: 'API',
     credentials: {
         secret: config.keycloakClientSecret
     }
