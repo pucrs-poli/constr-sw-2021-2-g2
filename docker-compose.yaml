@@ -10,19 +10,19 @@ services:
       MONGODB_DATABASE: construcao
 
   api:
-    image: "node:8"
-    user: "node"
-    working_dir: /home/node/app
+    image: "node:12"
+    container_name: api
+    build: .
     environment:
       - SECRET=245770ea-c13c-4dd5-b1d5-27467d7a231e
-      - DATABASE_URI=mongodb://localhost:27020/construcao
-      - API_URL=localhost
+      - DATABASE_URI=mongodb://192.168.0.8:27017/construcao
+      - API_URL=192.168.0.8
       - CLASS_URL=none
       - CLASS_USERNAME=none
       - CLASS_PASSWORD=none
-    expose:
-      - "3000"
-    command: bash -c "npm install && npm start"
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install -g n && n 12.13.0 && n which 12.13.0 && n prune && npm install && npm start"
 
   keycloak:
     image: jboss/keycloak:15.0.2

@@ -1,33 +1,32 @@
 {
-  "name": "constr-sw-2021-2-g2",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maarcoagg/constr-sw-2021-2-g2.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/maarcoagg/constr-sw-2021-2-g2/issues"
-  },
-  "homepage": "https://github.com/maarcoagg/constr-sw-2021-2-g2#readme",
-  "dependencies": {
-    "axios": "^0.21.4",
-    "body-parser": "^1.19.0",
-    "connect-sqlite3": "^0.9.12",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "express-validator": "^6.12.1",
-    "keycloak-connect": "^15.0.2",
-    "mongodb": "^4.1.2",
-    "mongoose": "^6.0.7"
-  }
+    "name": "constr-sw-2021-2-g2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/maarcoagg/constr-sw-2021-2-g2.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/maarcoagg/constr-sw-2021-2-g2/issues"
+    },
+    "homepage": "https://github.com/maarcoagg/constr-sw-2021-2-g2#readme",
+    "dependencies": {
+        "axios": "^0.21.4",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-session": "^1.17.2",
+        "express-validator": "^6.12.1",
+        "keycloak-connect": "^15.0.2",
+        "mongodb": "^4.1.2",
+        "mongoose": "^6.0.7"
+    }
 }

@@ -13,9 +13,9 @@
             ],
             "program": "${workspaceFolder}\\index.js",
             "env": {
-                "DATABASE_URI": "mongodb://localhost:27017/construcao",
-                "SECRET": "batata",
-                "API_URL": "localhost"
+                "DATABASE_URI": "mongodb://192.168.0.8:27017/construcao",
+                "SECRET": "446f0425-d0a6-47a5-916a-c9fb3cb42d66",
+                "API_URL": "192.168.0.8"
             }
         }
     ]

@@ -13,7 +13,7 @@ async function validate({ username, password }) {
     });
     var requestConfig = {
         method: 'post',
-        url: 'http://localhost:8080/auth/realms/Demo-Realm/protocol/openid-connect/token',
+        url: `http://${config.apiURL}:8080/auth/realms/Demo-Realm/protocol/openid-connect/token`,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -30,4 +30,4 @@ async function validate({ username, password }) {
 }
 
 
-module.export = { validate }
+module.exports = { validate }

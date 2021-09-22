@@ -8,6 +8,6 @@ const router = express.Router()
 router.use('/alunos', students)
 router.use('/alunos/:studentId/matriculas', enroll)
 router.use('/login', authentication)
-
+router.get('/', (_, res) => res.send({ status: 'Ok' }))
 
 module.exports = router
