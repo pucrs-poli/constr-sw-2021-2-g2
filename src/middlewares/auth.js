@@ -1,19 +1,30 @@
-var session = require('express-session')
-var Keycloak = require('keycloak-connect')
+const axios = require('axios');
 const config = require('../config/env')
 
-const memoryStore = new session.MemoryStore()
 
-let keycloakConfig = {
-    clientId: config.keycloakClientId,
-    bearerOnly: true,
-    serverUrl: `http://${config.API_URL}:8080/auth`,
-    realm: 'API',
-    credentials: {
-        secret: config.keycloakClientSecret
-    }
+async function validate(req, res, next) {
+    if (!req.headers.authorization)
+        return res.status(401).json();
+
+    let requestConfig = {
+        method: 'GET',
+        url: `http://${config.apiURL}:8080/auth/realms/API/protocol/openid-connect/userinfo`,
+        headers: {
+            Authorization: req.headers.authorization,
+        },
+    };
+
+    return await axios(requestConfig)
+        .then(resp => {
+            if(resp.status === 200)
+                return next()
+
+            return res.status(401)
+        })
+        .catch(error => {
+            return res.status(401);
+        });
 }
 
-const keycloak = new Keycloak({ store: memoryStore }, keycloakConfig)
 
-module.exports = { keycloak, memoryStore }
+module.exports = { validate }

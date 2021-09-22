@@ -3,17 +3,15 @@ const qs = require('qs');
 const config = require('../config/env')
 
 
-async function validate({ username, password }) {
+async function getToken({ clientId, clientSecret }) {
     var data = qs.stringify({
-        'grant_type': 'password',
-        'client_id': config.keycloakClientId,
-        'client_secret': config.keycloakClientSecret,
-        'username': username,
-        'password': password
+        'grant_type': 'client_credentials',
+        'client_id': clientId,
+        'client_secret': clientSecret
     });
     var requestConfig = {
         method: 'post',
-        url: `http://${config.apiURL}:8080/auth/realms/Demo-Realm/protocol/openid-connect/token`,
+        url: `http://${config.apiURL}:8080/auth/realms/API/protocol/openid-connect/token`,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -30,4 +28,4 @@ async function validate({ username, password }) {
 }
 
 
-module.exports = { validate }
+module.exports = { getToken }

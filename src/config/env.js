@@ -7,7 +7,5 @@ module.exports = {
     apiURL: process.env.API_URL,
     classURL: process.env.CLASS_URL,
     classUsername: process.env.CLASS_USERNAME,
-    classPassword: process.env.CLASS_PASSWORD,
-    keycloakClientId: process.env.CLIENT_ID,
-    keycloakClientSecret: process.env.CLIENT_SECRET
+    classPassword: process.env.CLASS_PASSWORD
 }

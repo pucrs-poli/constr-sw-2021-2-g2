@@ -6,19 +6,19 @@ const router = express.Router()
 
 
 router.post('/',
-    body('username').isString(),
-    body('password').isString(),
+    body('clientId').isString(),
+    body('clientSecret').isString(),
     async (req, res) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
-        let { status, data } = await authenticationController.validate(req.body)
+        let { status, data } = await authenticationController.getToken(req.body)
 
         if (status !== 200)
             return res.status(401).json({})
 
-        return res.status(204).json(data)
+        return res.status(200).json(data)
     }
 )
 

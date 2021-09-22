@@ -10,7 +10,7 @@ services:
       MONGODB_DATABASE: construcao
 
   api:
-    image: "node:12"
+    image: node:12
     container_name: api
     build: .
     environment:
@@ -20,6 +20,8 @@ services:
       - CLASS_URL=none
       - CLASS_USERNAME=none
       - CLASS_PASSWORD=none
+      - ADMIN_USER=admin
+      - ADMIN_PWD=admin
     ports:
       - "3000:3000"
     command: bash -c "npm install -g n && n 12.13.0 && n which 12.13.0 && n prune && npm install && npm start"
