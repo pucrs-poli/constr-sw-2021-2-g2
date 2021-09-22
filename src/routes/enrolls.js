@@ -1,5 +1,5 @@
 const express = require('express')
-const authHandler = require('../middlewares/auth')
+const authHandler = require('../middlewares/auth').getKeycloak()
 const enrollsController = require('../controllers/enrolls')
 const { body, param, query, validationResult } = require('express-validator')
 
@@ -7,7 +7,7 @@ const router = express.Router({ mergeParams: true })
 
 
 router.get('/',
-    authHandler,
+    authHandler.protect('user'),
     param('studentId').isString(),
     query('semester').isString().optional(),
     query('classId').isString().optional(),
@@ -23,7 +23,7 @@ router.get('/',
 )
 
 router.get('/:id',
-    authHandler,
+    authHandler.protect('user'),
     param('studentId').isString(),
     param('id').isString(),
     async (req, res, _) => {
@@ -38,7 +38,7 @@ router.get('/:id',
 )
 
 router.post('/',
-    authHandler,
+    authHandler.protect('user'),
     param('studentId').isString(),
     body('semester').isString(),
     body('classId').isString(),
@@ -54,7 +54,7 @@ router.post('/',
 )
 
 router.put('/:id',
-    authHandler,
+    authHandler.protect('user'),
     param('studentId').isString(),
     param('id').isString(),
     body('semester').isString(),
@@ -72,7 +72,7 @@ router.put('/:id',
 )
 
 router.patch('/:id',
-    authHandler,
+    authHandler.protect('user'),
     param('studentId').isString(),
     param('id').isString(),
     body('semester').isString().optional(),
@@ -90,7 +90,7 @@ router.patch('/:id',
 )
 
 router.delete('/:id',
-    authHandler,
+    authHandler.protect('user'),
     param('studentId').isString(),
     param('id').isString(),
     async (req, res, _) => {
