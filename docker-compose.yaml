@@ -1,16 +1,28 @@
 version: '3.8'
-services:
 
+services:
   mongodb:
     image: bitnami/mongodb:4.4.8
     container_name: mongodb
     ports:
       - "27017:27017"
     environment:
-      MONGODB_DATABASE: bookdb
-      MONGODB_USERNAME: bookuser
-      MONGODB_PASSWORD: bookpass
-      MONGODB_ROOT_PASSWORD: secret
+      MONGODB_DATABASE: construcao
+
+  api:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - SECRET=245770ea-c13c-4dd5-b1d5-27467d7a231e
+      - DATABASE_URI=mongodb://localhost:27020/construcao
+      - API_URL=localhost
+      - CLASS_URL=none
+      - CLASS_USERNAME=none
+      - CLASS_PASSWORD=none
+    expose:
+      - "3000"
+    command: "npm install && npm start"
 
   keycloak:
     image: jboss/keycloak:15.0.2

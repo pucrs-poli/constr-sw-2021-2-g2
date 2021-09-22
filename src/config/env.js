@@ -9,5 +9,5 @@ module.exports = {
     classUsername: process.env.CLASS_USERNAME,
     classPassword: process.env.CLASS_PASSWORD,
     keycloakClientId: 'nodejs-microservice',
-    keycloakClientSecret:'245770ea-c13c-4dd5-b1d5-27467d7a231e'
+    keycloakClientSecret: process.env.SECRET
 }
