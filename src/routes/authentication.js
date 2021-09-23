@@ -6,6 +6,9 @@ const router = express.Router()
 
 
 router.post('/',
+    body('username').isString(),
+    body('password').isString(),
+    body('grantType').isString(),
     body('clientId').isString(),
     body('clientSecret').isString(),
     async (req, res) => {
@@ -13,12 +16,9 @@ router.post('/',
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
-        let { status, data } = await authenticationController.getToken(req.body)
 
-        if (status !== 200)
-            return res.status(401).json({})
-
-        return res.status(200).json(data)
+        let { status, data } = await authenticationController.getToken(req, req.body)
+        return res.status(status).json(data)
     }
 )
 

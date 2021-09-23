@@ -7,7 +7,7 @@ async function getAll(filters) {
 }
 
 async function get(id) {
-    return await Student.findById(id)
+    return Student.findById(id)
         .then(val => {
             if (val)
                 return { status: 200, data: val }
@@ -19,7 +19,7 @@ async function get(id) {
 }
 
 async function register({ name, email, birthday, phone }) {
-    return await Student.create({ name, email, birthday, phone })
+    return Student.create({ name, email, birthday, phone })
         .then(_ => {
             return { status: 204 }
         })
@@ -32,7 +32,7 @@ async function register({ name, email, birthday, phone }) {
 }
 
 async function update(id, updateDict) {
-    return await Student.findOneAndUpdate({ _id: id }, updateDict, { new: true })
+    return Student.findOneAndUpdate({ _id: id }, updateDict, { new: true })
         .then(val => {
             if (val)
                 return { status: 204 }
@@ -47,7 +47,7 @@ async function update(id, updateDict) {
 }
 
 async function remove(id) {
-    return await Student.findOneAndRemove({ _id: id })
+    return Student.findOneAndRemove({ _id: id })
         .then(val => {
             if (val)
                 return { status: 204 }

@@ -13,7 +13,7 @@ async function getAll(studentId, filters) {
 }
 
 async function get(studentId, id) {
-    return await Enroll.findOne({ studentId: ObjectID(studentId), _id: id })
+    return Enroll.findOne({ studentId: ObjectID(studentId), _id: id })
         .then(val => {
             if (val)
                 return { status: 200, data: val }
@@ -35,7 +35,7 @@ async function register(studentId, { semester, classId }) {
     // test code
     classId = new ObjectID();
 
-    return await Enroll.create({ semester, studentId, classId })
+    return Enroll.create({ semester, studentId, classId })
         .then(_ => {
             return { status: 204 }
         })
@@ -54,11 +54,11 @@ async function update(studentId, id, updateDict) {
             return { status, data }
     }
 
-    if (updateDict.classId && !checkClass(updateDict.classId))
+    if (updateDict.classId && !(await checkClass(updateDict.classId)))
         return { status: 404, data: `class not found with id=${updateDict.classId}` }
 
 
-    return await Enroll.findOneAndUpdate({ studentId: ObjectID(studentId), _id: id }, updateDict, { new: true })
+    return Enroll.findOneAndUpdate({ studentId: ObjectID(studentId), _id: id }, updateDict, { new: true })
         .then(val => {
             if (val)
                 return { status: 204 }
@@ -73,7 +73,7 @@ async function update(studentId, id, updateDict) {
 }
 
 async function remove(studentId, id) {
-    return await Enroll.findOneAndRemove({ studentId: ObjectID(studentId), _id: id })
+    return Enroll.findOneAndRemove({ studentId: ObjectID(studentId), _id: id })
         .then(val => {
             if (val)
                 return { status: 204 }

@@ -1,30 +1,34 @@
-const axios = require('axios');
-const qs = require('qs');
+const KeycloakAdminClient = require('@keycloak/keycloak-admin-client').default
 const config = require('../config/env')
 
 
-async function getToken({ clientId, clientSecret }) {
-    var data = qs.stringify({
-        'grant_type': 'client_credentials',
-        'client_id': clientId,
-        'client_secret': clientSecret
-    });
-    var requestConfig = {
-        method: 'post',
-        url: `http://${config.apiURL}:8080/auth/realms/API/protocol/openid-connect/token`,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: data
-    };
+async function getToken(req, { username, password, grantType, clientId, clientSecret }) {
+    let kcAdminClient = new KeycloakAdminClient({
+        baseUrl: config.keycloakURL,
+        realmName: config.keycloakRealm
+    })
 
-    return await axios(requestConfig)
-        .then(resp => {
-            return { status: resp.status, data: resp.data }
-        })
-        .catch(error => {
-            return { status: error.response.status };
-        });
+    return kcAdminClient.auth({
+        username,
+        password,
+        grantType,
+        clientId,
+        clientSecret
+    }).then(_ => {
+        req.session.logged = true
+        req.session.grantType = grantType
+        req.session.clientId = clientId
+
+        return {
+            status: 200,
+            data: {
+                accessToken: kcAdminClient.accessToken,
+                refreshToken: kcAdminClient.refreshToken
+            }
+        }
+    }).catch(error => {
+        return { status: 401, data: error.response.data }
+    })
 }
 
 

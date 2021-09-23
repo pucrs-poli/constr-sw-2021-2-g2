@@ -7,8 +7,8 @@ const router = express.Router()
 
 
 router.get('/',
-    authHandler.validate,
-    body('name').isString().optional(),
+    authHandler.validate('all'),
+    query('name').isString().optional(),
     query('email').isEmail().optional(),
     query('birthday').isDate().optional(),
     query('phone').matches(/\+\d{2}\(\d{2}\)\d{5}-\d{4}/).optional(),
@@ -24,7 +24,7 @@ router.get('/',
 )
 
 router.get('/:id',
-    authHandler.validate,
+    authHandler.validate('all'),
     param('id').isString(),
     async (req, res, _) => {
         const errors = validationResult(req)
@@ -38,7 +38,7 @@ router.get('/:id',
 )
 
 router.post('/',
-    authHandler.validate,
+    authHandler.validate('all'),
     body('name').isString(),
     body('email').isEmail(),
     body('birthday').isDate(),
@@ -55,7 +55,7 @@ router.post('/',
 )
 
 router.put('/:id',
-    authHandler.validate,
+    authHandler.validate('all'),
     param('id').isString(),
     body('name').isString(),
     body('email').isEmail(),
@@ -73,7 +73,7 @@ router.put('/:id',
 )
 
 router.patch('/:id',
-    authHandler.validate,
+    authHandler.validate('all'),
     param('id').isString(),
     body('name').isString().optional(),
     body('email').isEmail().optional(),
@@ -91,7 +91,7 @@ router.patch('/:id',
 )
 
 router.delete('/:id',
-    authHandler.validate,
+    authHandler.validate('all'),
     param('id').isString(),
     async (req, res, _) => {
         const errors = validationResult(req)
