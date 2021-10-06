@@ -7,7 +7,7 @@ const router = express.Router({ mergeParams: true })
 
 
 router.get('/',
-    authHandler.validate('all'),
+    authHandler.validate(),
     param('studentId').isString(),
     query('semester').isString().optional(),
     query('classId').isString().optional(),
@@ -23,7 +23,7 @@ router.get('/',
 )
 
 router.get('/:id',
-    authHandler.validate('all'),
+    authHandler.validate(),
     param('studentId').isString(),
     param('id').isString(),
     async (req, res, _) => {
@@ -38,7 +38,7 @@ router.get('/:id',
 )
 
 router.post('/',
-    authHandler.validate('all'),
+    authHandler.validate(),
     param('studentId').isString(),
     body('semester').isString(),
     body('classId').isString(),
@@ -54,7 +54,7 @@ router.post('/',
 )
 
 router.put('/:id',
-    authHandler.validate('all'),
+    authHandler.validate(),
     param('studentId').isString(),
     param('id').isString(),
     body('semester').isString(),
@@ -72,7 +72,7 @@ router.put('/:id',
 )
 
 router.patch('/:id',
-    authHandler.validate('all'),
+    authHandler.validate(),
     param('studentId').isString(),
     param('id').isString(),
     body('semester').isString().optional(),
@@ -90,7 +90,7 @@ router.patch('/:id',
 )
 
 router.delete('/:id',
-    authHandler.validate('all'),
+    authHandler.validate(),
     param('studentId').isString(),
     param('id').isString(),
     async (req, res, _) => {

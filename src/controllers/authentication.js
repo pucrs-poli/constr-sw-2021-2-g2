@@ -1,13 +1,12 @@
 const KeycloakAdminClient = require('@keycloak/keycloak-admin-client').default
 const config = require('../config/env')
 
+const kcAdminClient = new KeycloakAdminClient({
+    baseUrl: config.keycloakURL,
+    realmName: config.keycloakRealm
+})
 
 async function getToken(req, { username, password, grantType, clientId, clientSecret }) {
-    let kcAdminClient = new KeycloakAdminClient({
-        baseUrl: config.keycloakURL,
-        realmName: config.keycloakRealm
-    })
-
     return kcAdminClient.auth({
         username,
         password,
@@ -18,6 +17,8 @@ async function getToken(req, { username, password, grantType, clientId, clientSe
         req.session.logged = true
         req.session.grantType = grantType
         req.session.clientId = clientId
+        req.session.accessToken = kcAdminClient.accessToken
+        req.session.refreshToken = kcAdminClient.refreshToken
 
         return {
             status: 200,

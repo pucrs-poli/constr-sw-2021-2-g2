@@ -3,7 +3,6 @@ const Student = require('../models/students')
 
 async function getAll(filters) {
     return { status: 200, data: await Student.find(filters) }
-
 }
 
 async function get(id) {

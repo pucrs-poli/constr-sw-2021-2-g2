@@ -1,6 +1,15 @@
 const axios = require('axios')
-const KeycloakAdminClient = require('@keycloak/keycloak-admin-client').default
 const config = require('../config/env')
+const User = require('../models/user')
+
+
+const ADMIN = "admin"
+
+
+async function validate_user(username) {
+    let user = await User.findOne({ username })
+    return !!user && user.enabled
+}
 
 
 function validate(role) {
@@ -16,29 +25,24 @@ function validate(role) {
             },
         };
 
-        let info
-        try {
-            info = await axios(requestConfig)
-        } catch (error) {
-            return res.status(error.response.status).json(error.response.data)
-        }
+        return await axios(requestConfig)
+            .then(val => {
+                if(role === ADMIN){
+                    return next()
+                }
 
-        let kcAdminClient = new KeycloakAdminClient({
-            baseUrl: config.keycloakURL,
-            realmName: config.keycloakRealm
-        })
+                validate_user(val.data.preferred_username)
+                .then(result => {
+                    if(result){
+                        return next()
+                    }
+                    
+                    return res.status(401).json()
+                })
 
-        if (req.session.logged) {
-            kcAdminClient.accessToken = req.header.accessToken
-            kcAdminClient.refreshToken = req.header.refreshToken
-            kcAdminClient.grantType = req.session.grantType
-            kcAdminClient.clientId = req.session.clientId
-
-            res.locals.kcAdminClient = kcAdminClient
-            return next()
-        }
-
-        return res.status(401).json()
+            }).catch(_ => {
+                return res.status(401).json()
+            })
     }
 }
 

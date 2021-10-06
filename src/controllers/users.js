@@ -1,47 +1,48 @@
+const User = require('../models/user')
 
 
-async function getAll(kcAdminClient) {
-    return kcAdminClient.users.find().then(val => {
-        console.log(val)
-    }).catch(error => {
-        console.log(error)
-    });
+async function getAll(filters) {
+    return { status: 200, data: await User.find(filters) }
 }
 
-async function get(kcAdminClient, id) {
-    return kcAdminClient.users.fineOne({
-        id: id
-    }).then(val => {
-        console.log(val)
-    }).catch(error => {
-        console.log(error)
-    })
+async function get(id) {
+    return User.findById(id)
+        .then(val => {
+            if (val)
+                return { status: 200, data: val }
+            return { status: 404, data: `user not found with id=${id}` }
+        })
+        .catch(err => {
+            return { status: 400, data: err.message }
+        })
 }
 
-async function register(kcAdminClient, { username, email, firstName, lastName, emailVerified, enabled }) {
-    return kcAdminClient.users.create({
-        username,
-        email,
-        firstName,
-        lastName,
-        emailVerified,
-        enabled,
-    }).then(val => {
-        console.log(val)
-    }).catch(error => {
-        console.log(error)
-    })
+async function register({ username, email, firstName, lastName, emailVerified }) {
+    return User.create({ username, email, firstName, lastName, emailVerified, enabled: true })
+        .then(_ => {
+            return { status: 204 }
+        })
+        .catch(err => {
+            if (err.code === 11000)
+                return { status: 400, data: 'duplicate email' }
+
+            return { status: 400, data: err.message }
+        })
 }
 
-async function update(kcAdminClient, id, updateDict) {
-    return kcAdminClient.users.update(
-        { id },
-        updateDict
-    ).then(val => {
-        console.log(val)
-    }).catch(error => {
-        console.log(error)
-    })
+async function update(id, updateDict) {
+    return User.findOneAndUpdate({ _id: id }, updateDict, { new: true })
+        .then(val => {
+            if (val)
+                return { status: 204 }
+            return { status: 404, data: `user not found with id=${id}` }
+        })
+        .catch(err => {
+            if (err.code === 11000)
+                return { status: 400, data: 'duplicate email' }
+
+            return { status: 400, data: err.message }
+        })
 }
 
 

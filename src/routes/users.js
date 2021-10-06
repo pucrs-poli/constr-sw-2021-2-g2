@@ -14,8 +14,7 @@ router.get('/',
             return res.status(422).json({ errors: errors.array() })
         }
 
-        let kcAdminClient = res.locals.kcAdminClient
-        let { status, data } = await usersController.getAll(kcAdminClient)
+        let { status, data } = await usersController.getAll()
         return res.status(status).json({ data })
     }
 )
@@ -28,8 +27,8 @@ router.get('/:id',
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
-        let kcAdminClient = res.locals.kcAdminClient
-        let { status, data } = await usersController.get(kcAdminClient, req.params.id)
+        
+        let { status, data } = await usersController.get(req.params.id)
         return res.status(status).json({ data })
     }
 )
@@ -41,15 +40,13 @@ router.post('/',
     body('firstName').isString(),
     body('lastName').isString(),
     body('emailVerified').isString(),
-    body('enabled').isString(),
     async (req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
 
-        let kcAdminClient = res.locals.kcAdminClient
-        let { status, data } = await usersController.register(kcAdminClient, req.body)
+        let { status, data } = await usersController.register(req.body)
         return res.status(status).json({ data })
     }
 )
@@ -69,8 +66,7 @@ router.put('/:id',
             return res.status(422).json({ errors: errors.array() })
         }
 
-        let kcAdminClient = res.locals.kcAdminClient
-        let { status, data } = await usersController.update(kcAdminClient, req.params.id, req.body)
+        let { status, data } = await usersController.update(req.params.id, req.body)
         return res.status(status).json({ data })
     }
 )
@@ -83,14 +79,14 @@ router.patch('/:id',
     body('firstName').isString().optional(),
     body('lastName').isString().optional(),
     body('emailVerified').isString().optional(),
+    body('enabled').isString().optional(),
     async (req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
 
-        let kcAdminClient = res.locals.kcAdminClient
-        let { status, data } = await usersController.update(kcAdminClient, req.params.id, req.body)
+        let { status, data } = await usersController.update(req.params.id, req.body)
         return res.status(status).json({ data })
     }
 )
@@ -104,8 +100,7 @@ router.delete('/:id',
             return res.status(422).json({ errors: errors.array() })
         }
 
-        let kcAdminClient = res.locals.kcAdminClient
-        let { status, data } = await usersController.update(kcAdminClient, req.params.id, { enabled: false })
+        let { status, data } = await usersController.update(req.params.id, { enabled: false })
         return res.status(status).json({ data })
     }
 )

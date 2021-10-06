@@ -4,6 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+
         {
             "type": "pwa-node",
             "request": "launch",
@@ -13,10 +15,10 @@
             ],
             "program": "${workspaceFolder}\\index.js",
             "env": {
-                "DATABASE_URI": "mongodb://192.168.0.8:27017/construcao",
                 "SECRET": "446f0425-d0a6-47a5-916a-c9fb3cb42d66",
-                "API_URL": "192.168.0.8",
-                "KEYCLOAK_URL": "http://192.168.0.8:8080/auth",
+                "DATABASE_URI": "mongodb://192.168.0.6:27017/construcao",
+                "API_URL": "localhost",
+                "KEYCLOAK_URL": "http://192.168.0.6:8080/auth",
                 "KEYCLOAK_REALM": "master"
             }
         }
