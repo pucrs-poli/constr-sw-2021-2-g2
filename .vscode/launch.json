@@ -4,8 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
-
         {
             "type": "pwa-node",
             "request": "launch",
@@ -17,7 +15,7 @@
             "env": {
                 "SECRET": "446f0425-d0a6-47a5-916a-c9fb3cb42d66",
                 "DATABASE_URI": "mongodb://192.168.0.6:27017/construcao",
-                "API_URL": "localhost",
+                "API_URL": "192.168.0.6",
                 "KEYCLOAK_URL": "http://192.168.0.6:8080/auth",
                 "KEYCLOAK_REALM": "master"
             }

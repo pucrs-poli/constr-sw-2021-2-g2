@@ -1,0 +1,2159 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Construcao-Software",
+    "contact": {}
+  },
+  "host": "192.168.0.8:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Login",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "Login",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            },
+            "examples": {
+              "application/json": {
+                "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJVTmxNa0RaZ1lBdlJtOG1JeW0tSkRvYmFyb29SWklURjZUNzYwaWhaaFRvIn0.eyJleHAiOjE2MzM3OTk5OTIsImlhdCI6MTYzMzc5OTkzMiwianRpIjoiODhkMzc3MGMtOWY3NC00Nzg3LWJiNjItNzk3NmQzM2M1N2E1IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMC42OjgwODAvYXV0aC9yZWFsbXMvbWFzdGVyIiwiYXVkIjpbIm1hc3Rlci1yZWFsbSIsImFjY291bnQiXSwic3ViIjoiZWUxOThiMTctZGViOC00YTUwLTg3ZWMtZmM4ODlhYjQyZDllIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibm9kZWpzLWtleWNsb2FrLWNsaWVudCIsInNlc3Npb25fc3RhdGUiOiI2MWYwZmQ5Ny03OTdhLTRhZGItYTlmMC1jZjdkYWUyMGM3MjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNyZWF0ZS1yZWFsbSIsImRlZmF1bHQtcm9sZXMtbWFzdGVyIiwib2ZmbGluZV9hY2Nlc3MiLCJhZG1pbiIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsibm9kZWpzLWtleWNsb2FrLWNsaWVudCI6eyJyb2xlcyI6WyJ1bWFfcHJvdGVjdGlvbiJdfSwibWFzdGVyLXJlYWxtIjp7InJvbGVzIjpbInZpZXctaWRlbnRpdHktcHJvdmlkZXJzIiwidmlldy1yZWFsbSIsIm1hbmFnZS1pZGVudGl0eS1wcm92aWRlcnMiLCJpbXBlcnNvbmF0aW9uIiwiY3JlYXRlLWNsaWVudCIsIm1hbmFnZS11c2VycyIsInF1ZXJ5LXJlYWxtcyIsInZpZXctYXV0aG9yaXphdGlvbiIsInF1ZXJ5LWNsaWVudHMiLCJxdWVyeS11c2VycyIsIm1hbmFnZS1ldmVudHMiLCJtYW5hZ2UtcmVhbG0iLCJ2aWV3LWV2ZW50cyIsInZpZXctdXNlcnMiLCJ2aWV3LWNsaWVudHMiLCJtYW5hZ2UtYXV0aG9yaXphdGlvbiIsIm1hbmFnZS1jbGllbnRzIiwicXVlcnktZ3JvdXBzIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiI2MWYwZmQ5Ny03OTdhLTRhZGItYTlmMC1jZjdkYWUyMGM3MjciLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiZnJhbmNpc2NvIn0.gDF3v2At2U1xdK8vGY_t9hIumrQy0wnj7LDvJz7lpr0v0CmLHEeqnywTzBzBo8zify49WDqAuWxTC__0MmXTpMqS4Z7batVEFcOU3zhG1OrAYLoVjNPsgc7wuZk4PasujbcVw4If7T2JDuWy0fJ3kZZkGSO_QT8yDmfriEzxTSgrmIaDCOkGyWec1DSpNxubgvF1hsoHPrmr5vDsS6CkeBimVL06SJ46F4VvqWffjuvRPchLx1C2cLQoi6J_OdjzvLech9XQcvPxwnUaNlz1peODVTDGa3HtZTVNmfZwQuIlOvkcPP4rTKo4Ngt33tpWbEHWArCwDkX04ib4zXAodw",
+                "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3ZTA4OGZkYy1lYTAwLTQ4NjktYTBmZS1iM2JlY2E1NjJjNTcifQ.eyJleHAiOjE2MzM4MDE3MzIsImlhdCI6MTYzMzc5OTkzMiwianRpIjoiNzQ3Zjc1OTgtZWZmYi00ZTk3LTg4OTctMjViNjU3YjQ2ZjRlIiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMC42OjgwODAvYXV0aC9yZWFsbXMvbWFzdGVyIiwiYXVkIjoiaHR0cDovLzE5Mi4xNjguMC42OjgwODAvYXV0aC9yZWFsbXMvbWFzdGVyIiwic3ViIjoiZWUxOThiMTctZGViOC00YTUwLTg3ZWMtZmM4ODlhYjQyZDllIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6Im5vZGVqcy1rZXljbG9hay1jbGllbnQiLCJzZXNzaW9uX3N0YXRlIjoiNjFmMGZkOTctNzk3YS00YWRiLWE5ZjAtY2Y3ZGFlMjBjNzI3Iiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNjFmMGZkOTctNzk3YS00YWRiLWE5ZjAtY2Y3ZGFlMjBjNzI3In0.zn6YEK3m8lOKiOq4wkWSN7-OIhHLnFqS1CRXHZAz7Ow"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "default": ""
+            },
+            "examples": {
+              "application/json": {}
+            },
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/LoginMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "clientSecret",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get All",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "GetAll",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetAll"
+            },
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "_id": "615e2f373460a3ef7902bae1",
+                    "username": "jojo",
+                    "email": "jojo@jojo.com",
+                    "firstName": "jo",
+                    "lastName": "jo",
+                    "emailVerified": true,
+                    "enabled": true
+                  },
+                  {
+                    "_id": "615e30d5f225ca416a96e447",
+                    "username": "francisco",
+                    "email": "francsico@francsico.com",
+                    "firstName": "jo",
+                    "lastName": "jo",
+                    "emailVerified": true,
+                    "enabled": true
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "Register",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "Register",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/RegisterMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "emailVerified",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/users/615e2f373460a3ef7902bae1": {
+      "get": {
+        "summary": "Get One",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "GetOne",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetOne"
+            },
+            "examples": {
+              "application/json": {
+                "data": {
+                  "_id": "615e2f373460a3ef7902bae1",
+                  "username": "jojo",
+                  "email": "jojo@jojo.com",
+                  "firstName": "jo",
+                  "lastName": "jo",
+                  "emailVerified": true,
+                  "enabled": true
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GetOneWrongDataType1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "Cast to ObjectId failed for value \"1\" (type string) at path \"_id\" for model \"Users\""
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/GetOneNotFound1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "user not found with id=615e2f373460a3ef7902baf1"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "Total Update",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "TotalUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TotalUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/TotalUpdateMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "emailVerified",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "patch": {
+        "summary": "Partial Update",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "PartialUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PartialUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/PartialUpdateWrongType1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "value": 0,
+                    "msg": "Invalid value",
+                    "param": "lastName",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "Remove",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/RemoveWrongFormat1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "Cast to ObjectId failed for value \"kll\" (type string) at path \"_id\" for model \"Students\""
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/RemoveWrongID1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "user not found with id=615e2f373460a3ef7902baf1"
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/alunos": {
+      "get": {
+        "summary": "Get All",
+        "tags": [
+          "alunos"
+        ],
+        "operationId": "GetAll1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetAll1"
+            },
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "_id": "614b7deced98c3e7891ec4de",
+                    "name": "john",
+                    "email": "potato@potate.com",
+                    "birthday": "2019-08-21T00:00:00.000Z",
+                    "phone": "+55(51)99455-6722"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "Register",
+        "tags": [
+          "alunos"
+        ],
+        "operationId": "PostRegister",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest1"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/RegisterMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "birthday",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/alunos/614b7deced98c3e7891ec4de": {
+      "get": {
+        "summary": "Get One",
+        "tags": [
+          "alunos"
+        ],
+        "operationId": "GetOne1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetOne1"
+            },
+            "examples": {
+              "application/json": {
+                "data": {
+                  "_id": "614b7deced98c3e7891ec4de",
+                  "name": "john",
+                  "email": "potato@potate.com",
+                  "birthday": "2019-08-21T00:00:00.000Z",
+                  "phone": "+55(51)99455-6722"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GetOneWrongFormat1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "Cast to ObjectId failed for value \"drftgyvbhjn\" (type string) at path \"_id\" for model \"Students\""
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/GetOneWrongID1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "student not found with id=614b7defed98c3e7891ec4de"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "Total Update",
+        "tags": [
+          "alunos"
+        ],
+        "operationId": "PutTotalUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TotalUpdateRequest1"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/TotalUpdateMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "birthday",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "patch": {
+        "summary": "Partial Update",
+        "tags": [
+          "alunos"
+        ],
+        "operationId": "PatchPartialUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PartialUpdateRequest1"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/PartialUpdateWrongType3"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "value": "potatobatata.com",
+                    "msg": "Invalid value",
+                    "param": "email",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "Remove",
+        "tags": [
+          "alunos"
+        ],
+        "operationId": "DeleteRemove",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/RemoveWrongFormat1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "Cast to ObjectId failed for value \"kll\" (type string) at path \"_id\" for model \"Students\""
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/RemoveWrongID1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "student not found with id=614b7deced98c3e7891ec4de"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/alunos/614b7deced98c3e7891ec4de/matriculas": {
+      "get": {
+        "summary": "Get All",
+        "tags": [
+          "matriculas"
+        ],
+        "operationId": "GetAll12",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetAll2"
+            },
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "_id": "614b8a902b8404587132d054",
+                    "semester": "5",
+                    "classId": "614b8a902b8404587132d053",
+                    "studentId": "614b8a882b8404587132d04f"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "Register",
+        "tags": [
+          "matriculas"
+        ],
+        "operationId": "PostRegister1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest2"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/RegisterMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "classId",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054": {
+      "get": {
+        "summary": "Get One",
+        "tags": [
+          "matriculas"
+        ],
+        "operationId": "GetOne12",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetOne2"
+            },
+            "examples": {
+              "application/json": {
+                "data": {
+                  "_id": "614b8a902b8404587132d054",
+                  "semester": "5",
+                  "classId": "614b8a902b8404587132d053",
+                  "studentId": "614b8a882b8404587132d04f"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GetOneWrongFormat1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "Cast to ObjectId failed for value \"fhcgvjkhbjnkm\" (type string) at path \"_id\" for model \"Enrolls\""
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/GetOneWrongID1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "enroll not found with id=614b7defed98c3e7891ec4de and studentId=614b8a882b8404587132d04f"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "Total Update",
+        "tags": [
+          "matriculas"
+        ],
+        "operationId": "PutTotalUpdate1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TotalUpdateRequest2"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/TotalUpdateMissingValue1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "msg": "Invalid value",
+                    "param": "classId",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "patch": {
+        "summary": "Partial Update",
+        "tags": [
+          "matriculas"
+        ],
+        "operationId": "PatchPartialUpdate1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PartialUpdateRequest2"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV) (RFC 4918)",
+            "schema": {
+              "$ref": "#/definitions/PartialUpdateWrongType1"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "value": 5,
+                    "msg": "Invalid value",
+                    "param": "semester",
+                    "location": "body"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "Remove",
+        "tags": [
+          "matriculas"
+        ],
+        "operationId": "DeleteRemove1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/RemoveWrongFormat1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "Cast to ObjectId failed for value \"fhcgvjkhbjnkm\" (type string) at path \"_id\" for model \"Enrolls\""
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/RemoveWrongID1"
+            },
+            "examples": {
+              "application/json": {
+                "data": "enroll not found with id=614b7defed98c3e7891ec4de and studentId=614b8a882b8404587132d04f"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "definitions": {
+    "LoginRequest": {
+      "title": "LoginRequest",
+      "example": {
+        "username": "francisco",
+        "password": "francisco",
+        "grantType": "password",
+        "clientId": "nodejs-keycloak-client",
+        "clientSecret": "6a5fd6cb-0049-49a4-915a-272ec2df0b9b"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "grantType": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "grantType",
+        "clientId",
+        "clientSecret"
+      ]
+    },
+    "Login": {
+      "title": "Login",
+      "example": {
+        "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlNmpKRURySXZGRGl1SzFzNGZNd094OXNHVC0xelpGUnVPQnZVZm9jN1VnIn0.eyJleHAiOjE2MzIzMzgxNjUsImlhdCI6MTYzMjMzNzg2NSwianRpIjoiOGU2ZjAyYjgtZDA4Ny00ZWFhLThmN2EtMzFiMjc0YTVkNDlhIiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguMC44OjgwODAvYXV0aC9yZWFsbXMvQVBJIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImZhOGI1MzRhLWZmNDctNDk3ZC1iNDQxLTE2NmU0YWJjMWFhOCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNsaWVudCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1hcGkiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRJZCI6ImNsaWVudCIsImNsaWVudEhvc3QiOiIxNzIuMTkuMC4xIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTkuMC4xIn0.mpv4jjvVOUfBCd6q3hfIcoeMwfKiBEvs_dSO5aHEVDOyv5Rf9YwUf6kI9yFAS7eX7oVA6oXTyexUywql5ZkOSNYND2_i5-0QnWKCIZHxkxMGXzcsQA2a_JSMYdaoyDxWtkaYpRE32OX2_IJ3yYL9kL7-NUAcaN4lmcFVnOYVWuyvi1kFDMQNGMkn4Xy3q-Ku9F4_rDoX4CUS7l144qCjU78y9OShnU8fQavKQaDbMMSvKqICNBI5_PPE3mFPY5HxqT6y_l1FtGzh8ugTOb_xjVvZq4bLHgmTT2yj7W9YJOJ2HdwzKW-hLe6DfytFq3-lZjTk9evc0tV-GuCVJt4ehQ",
+        "expires_in": 300,
+        "refresh_expires_in": 0,
+        "token_type": "Bearer",
+        "not-before-policy": 0,
+        "scope": "profile email"
+      },
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        },
+        "expires_in": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "refresh_expires_in": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "token_type": {
+          "type": "string"
+        },
+        "not-before-policy": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "access_token",
+        "expires_in",
+        "refresh_expires_in",
+        "token_type",
+        "not-before-policy",
+        "scope"
+      ]
+    },
+    "Error": {
+      "title": "Error",
+      "example": {
+        "msg": "Invalid value",
+        "param": "clientSecret",
+        "location": "body"
+      },
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string"
+        },
+        "param": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "msg",
+        "param",
+        "location"
+      ]
+    },
+    "LoginMissingValue1": {
+      "title": "LoginMissingValue1",
+      "example": {
+        "errors": [
+          {
+            "msg": "Invalid value",
+            "param": "clientSecret",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "GetAll": {
+      "title": "GetAll",
+      "example": {
+        "data": [
+          {
+            "_id": "615e2f373460a3ef7902bae1",
+            "username": "jojo",
+            "email": "jojo@jojo.com",
+            "firstName": "jo",
+            "lastName": "jo",
+            "emailVerified": true,
+            "enabled": true
+          },
+          {
+            "_id": "615e30d5f225ca416a96e447",
+            "username": "francisco",
+            "email": "francsico@francsico.com",
+            "firstName": "jo",
+            "lastName": "jo",
+            "emailVerified": true,
+            "enabled": true
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Datum"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "Datum": {
+      "title": "Datum",
+      "example": {
+        "_id": "615e2f373460a3ef7902bae1",
+        "username": "jojo",
+        "email": "jojo@jojo.com",
+        "firstName": "jo",
+        "lastName": "jo",
+        "emailVerified": true,
+        "enabled": true
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "_id",
+        "username",
+        "email",
+        "firstName",
+        "lastName",
+        "emailVerified",
+        "enabled"
+      ]
+    },
+    "GetOne": {
+      "title": "GetOne",
+      "example": {
+        "data": {
+          "_id": "615e2f373460a3ef7902bae1",
+          "username": "jojo",
+          "email": "jojo@jojo.com",
+          "firstName": "jo",
+          "lastName": "jo",
+          "emailVerified": true,
+          "enabled": true
+        }
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "Data": {
+      "title": "Data",
+      "example": {
+        "_id": "615e2f373460a3ef7902bae1",
+        "username": "jojo",
+        "email": "jojo@jojo.com",
+        "firstName": "jo",
+        "lastName": "jo",
+        "emailVerified": true,
+        "enabled": true
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "_id",
+        "username",
+        "email",
+        "firstName",
+        "lastName",
+        "emailVerified",
+        "enabled"
+      ]
+    },
+    "GetOneWrongDataType1": {
+      "title": "GetOneWrongDataType1",
+      "example": {
+        "data": "Cast to ObjectId failed for value \"1\" (type string) at path \"_id\" for model \"Users\""
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "GetOneNotFound1": {
+      "title": "GetOneNotFound1",
+      "example": {
+        "data": "user not found with id=615e2f373460a3ef7902baf1"
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "RegisterRequest": {
+      "title": "RegisterRequest",
+      "example": {
+        "username": "francisco",
+        "email": "francsico@francsico.com",
+        "firstName": "jo",
+        "lastName": "jo",
+        "emailVerified": "1"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "firstName",
+        "lastName",
+        "emailVerified"
+      ]
+    },
+    "RegisterMissingValue1": {
+      "title": "RegisterMissingValue1",
+      "example": {
+        "errors": [
+          {
+            "msg": "Invalid value",
+            "param": "emailVerified",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "Error4": {
+      "title": "Error4",
+      "example": {
+        "value": 0,
+        "msg": "Invalid value",
+        "param": "lastName",
+        "location": "body"
+      },
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "param": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "msg",
+        "param",
+        "location"
+      ]
+    },
+    "RegisterWrongType1": {
+      "title": "RegisterWrongType1",
+      "example": {
+        "errors": [
+          {
+            "value": 0,
+            "msg": "Invalid value",
+            "param": "lastName",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error4"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "TotalUpdateRequest": {
+      "title": "TotalUpdateRequest",
+      "example": {
+        "username": "francisco",
+        "email": "francsico@francsico.com",
+        "firstName": "jo",
+        "lastName": "jo",
+        "emailVerified": "1"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "firstName",
+        "lastName",
+        "emailVerified"
+      ]
+    },
+    "TotalUpdateMissingValue1": {
+      "title": "TotalUpdateMissingValue1",
+      "example": {
+        "errors": [
+          {
+            "msg": "Invalid value",
+            "param": "emailVerified",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "TotalUpdateWrongType1": {
+      "title": "TotalUpdateWrongType1",
+      "example": {
+        "errors": [
+          {
+            "value": 0,
+            "msg": "Invalid value",
+            "param": "lastName",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error4"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "PartialUpdateRequest": {
+      "title": "PartialUpdateRequest",
+      "example": {
+        "lastName": "jo"
+      },
+      "type": "object",
+      "properties": {
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "lastName"
+      ]
+    },
+    "PartialUpdateWrongType1": {
+      "title": "PartialUpdateWrongType1",
+      "example": {
+        "errors": [
+          {
+            "value": 0,
+            "msg": "Invalid value",
+            "param": "lastName",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error4"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "RemoveWrongFormat1": {
+      "title": "RemoveWrongFormat1",
+      "example": {
+        "data": "Cast to ObjectId failed for value \"kll\" (type string) at path \"_id\" for model \"Students\""
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "RemoveWrongID1": {
+      "title": "RemoveWrongID1",
+      "example": {
+        "data": "user not found with id=615e2f373460a3ef7902baf1"
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "GetAll1": {
+      "title": "GetAll1",
+      "example": {
+        "data": [
+          {
+            "_id": "614b7deced98c3e7891ec4de",
+            "name": "john",
+            "email": "potato@potate.com",
+            "birthday": "2019-08-21T00:00:00.000Z",
+            "phone": "+55(51)99455-6722"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Data1"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "Data1": {
+      "title": "Data1",
+      "example": {
+        "_id": "614b7deced98c3e7891ec4de",
+        "name": "john",
+        "email": "potato@potate.com",
+        "birthday": "2019-08-21T00:00:00.000Z",
+        "phone": "+55(51)99455-6722"
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "name",
+        "email",
+        "birthday",
+        "phone"
+      ]
+    },
+    "GetOne1": {
+      "title": "GetOne1",
+      "example": {
+        "data": {
+          "_id": "614b7deced98c3e7891ec4de",
+          "name": "john",
+          "email": "potato@potate.com",
+          "birthday": "2019-08-21T00:00:00.000Z",
+          "phone": "+55(51)99455-6722"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Data1"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "GetOneWrongFormat1": {
+      "title": "GetOneWrongFormat1",
+      "example": {
+        "data": "Cast to ObjectId failed for value \"drftgyvbhjn\" (type string) at path \"_id\" for model \"Students\""
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "GetOneWrongID1": {
+      "title": "GetOneWrongID1",
+      "example": {
+        "data": "student not found with id=614b7defed98c3e7891ec4de"
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "RegisterRequest1": {
+      "title": "RegisterRequest1",
+      "example": {
+        "name": "john",
+        "email": "potato@potate.com",
+        "birthday": "2019-08-21",
+        "phone": "+55(51)99455-6722"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "birthday",
+        "phone"
+      ]
+    },
+    "Error14": {
+      "title": "Error14",
+      "example": {
+        "value": "+55(51)9455-6722",
+        "msg": "Invalid value",
+        "param": "phone",
+        "location": "body"
+      },
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "param": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "msg",
+        "param",
+        "location"
+      ]
+    },
+    "RegisterWrongType3": {
+      "title": "RegisterWrongType3",
+      "example": {
+        "errors": [
+          {
+            "value": "+55(51)9455-6722",
+            "msg": "Invalid value",
+            "param": "phone",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error14"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "TotalUpdateRequest1": {
+      "title": "TotalUpdateRequest1",
+      "example": {
+        "name": "johnny",
+        "email": "potato@batata.com",
+        "birthday": "2019-08-20",
+        "phone": "+55(51)99455-6422"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "birthday",
+        "phone"
+      ]
+    },
+    "TotalUpdateWrongType3": {
+      "title": "TotalUpdateWrongType3",
+      "example": {
+        "errors": [
+          {
+            "value": "+55(51)9455-6722",
+            "msg": "Invalid value",
+            "param": "phone",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error14"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "PartialUpdateRequest1": {
+      "title": "PartialUpdateRequest1",
+      "example": {
+        "name": "johnny",
+        "email": "potato@batata.com",
+        "birthday": "2019-08-20"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "birthday"
+      ]
+    },
+    "PartialUpdateWrongType3": {
+      "title": "PartialUpdateWrongType3",
+      "example": {
+        "errors": [
+          {
+            "value": "potatobatata.com",
+            "msg": "Invalid value",
+            "param": "email",
+            "location": "body"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error14"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "GetAll2": {
+      "title": "GetAll2",
+      "example": {
+        "data": [
+          {
+            "_id": "614b8a902b8404587132d054",
+            "semester": "5",
+            "classId": "614b8a902b8404587132d053",
+            "studentId": "614b8a882b8404587132d04f"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Data3"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "Data3": {
+      "title": "Data3",
+      "example": {
+        "_id": "614b8a902b8404587132d054",
+        "semester": "5",
+        "classId": "614b8a902b8404587132d053",
+        "studentId": "614b8a882b8404587132d04f"
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "semester": {
+          "type": "string"
+        },
+        "classId": {
+          "type": "string"
+        },
+        "studentId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "semester",
+        "classId",
+        "studentId"
+      ]
+    },
+    "GetOne2": {
+      "title": "GetOne2",
+      "example": {
+        "data": {
+          "_id": "614b8a902b8404587132d054",
+          "semester": "5",
+          "classId": "614b8a902b8404587132d053",
+          "studentId": "614b8a882b8404587132d04f"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Data3"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "RegisterRequest2": {
+      "title": "RegisterRequest2",
+      "example": {
+        "semester": "5",
+        "classId": ""
+      },
+      "type": "object",
+      "properties": {
+        "semester": {
+          "type": "string"
+        },
+        "classId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "semester",
+        "classId"
+      ]
+    },
+    "TotalUpdateRequest2": {
+      "title": "TotalUpdateRequest2",
+      "example": {
+        "semester": "6",
+        "classId": "",
+        "studentId": "{{objectid}}"
+      },
+      "type": "object",
+      "properties": {
+        "semester": {
+          "type": "string"
+        },
+        "classId": {
+          "type": "string"
+        },
+        "studentId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "semester",
+        "classId",
+        "studentId"
+      ]
+    },
+    "PartialUpdateRequest2": {
+      "title": "PartialUpdateRequest2",
+      "example": {
+        "semester": "7"
+      },
+      "type": "object",
+      "properties": {
+        "semester": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "semester"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "auth"
+    },
+    {
+      "name": "alunos"
+    },
+    {
+      "name": "matriculas"
+    }
+  ]
+}

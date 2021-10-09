@@ -16,7 +16,8 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);\r",
-									"postman.setEnvironmentVariable(\"access_token\", \"bearer \" + jsonData[\"access_token\"]);"
+									"postman.setEnvironmentVariable(\"access_token\", \"Bearer \" + jsonData[\"accessToken\"]);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", \"Bearer \" + jsonData[\"refreshToken\"]);"
 								],
 								"type": "text/javascript"
 							}
@@ -27,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clientId\": \"client\",\r\n    \"clientSecret\": \"secret\"\r\n}",
+							"raw": "{\r\n    \"username\":\"francisco\",\r\n    \"password\": \"francisco\",\r\n    \"grantType\": \"password\",\r\n    \"clientId\": \"nodejs-keycloak-client\",\r\n    \"clientSecret\": \"6a5fd6cb-0049-49a4-915a-272ec2df0b9b\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,6 +148,943 @@
 							"body": "{\n    \"errors\": [\n        {\n            \"msg\": \"Invalid value\",\n            \"param\": \"clientSecret\",\n            \"location\": \"body\"\n        }\n    ]\n}"
 						}
 					]
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{url}}/api/users",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Access-Token",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Refresh-Token",
+										"value": "{{refresh_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"_id\": \"615e2f373460a3ef7902bae1\",\n            \"username\": \"jojo\",\n            \"email\": \"jojo@jojo.com\",\n            \"firstName\": \"jo\",\n            \"lastName\": \"jo\",\n            \"emailVerified\": true,\n            \"enabled\": true\n        },\n        {\n            \"_id\": \"615e30d5f225ca416a96e447\",\n            \"username\": \"francisco\",\n            \"email\": \"francsico@francsico.com\",\n            \"firstName\": \"jo\",\n            \"lastName\": \"jo\",\n            \"emailVerified\": true,\n            \"enabled\": true\n        }\n    ]\n}"
+						},
+						{
+							"name": "Get All Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"615e2f373460a3ef7902bae1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get One",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"_id\": \"615e2f373460a3ef7902bae1\",\n        \"username\": \"jojo\",\n        \"email\": \"jojo@jojo.com\",\n        \"firstName\": \"jo\",\n        \"lastName\": \"jo\",\n        \"emailVerified\": true,\n        \"enabled\": true\n    }\n}"
+						},
+						{
+							"name": "Get One Wrong Data Type",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/users/1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"Cast to ObjectId failed for value \\\"1\\\" (type string) at path \\\"_id\\\" for model \\\"Users\\\"\"\n}"
+						},
+						{
+							"name": "Get One Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Get One Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902baf1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902baf1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"user not found with id=615e2f373460a3ef7902baf1\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{url}}/api/users",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Register Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Register Missing Value",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"msg\": \"Invalid value\",\n            \"param\": \"emailVerified\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Register Wrong Type",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": 0,\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"value\": 0,\n            \"msg\": \"Invalid value\",\n            \"param\": \"lastName\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Total Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"615e2f373460a3ef7902bae1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Total Update",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Total Update Unauthorized",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Total Update Missing Value",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"msg\": \"Invalid value\",\n            \"param\": \"emailVerified\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Total Update Wrong Type",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": 0,\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"errors\": [\r\n        {\r\n            \"value\": 0,\r\n            \"msg\": \"Invalid value\",\r\n            \"param\": \"lastName\",\r\n            \"location\": \"body\"\r\n        }\r\n    ]\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Partial Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastName\": \"jo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"615e2f373460a3ef7902bae1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Partial Update",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lastName\": \"jo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Partial Update Unauthorized",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"francisco\",\r\n    \"email\": \"francsico@francsico.com\",\r\n    \"firstName\": \"jo\",\r\n    \"lastName\": \"jo\",\r\n    \"emailVerified\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Partial Update Wrong Type",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lastName\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"errors\": [\r\n        {\r\n            \"value\": 0,\r\n            \"msg\": \"Invalid value\",\r\n            \"param\": \"lastName\",\r\n            \"location\": \"body\"\r\n        }\r\n    ]\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/api/users/615e2f373460a3ef7902bae1",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"615e2f373460a3ef7902bae1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Remove",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Remove Unauthorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/615e2f373460a3ef7902bae1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"615e2f373460a3ef7902bae1"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Remove Wrong Format",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/kll",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"kll"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"Cast to ObjectId failed for value \\\"kll\\\" (type string) at path \\\"_id\\\" for model \\\"Students\\\"\"\n}"
+						},
+						{
+							"name": "Remove Wrong ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/615e2f373460a3ef7902baf1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"615e2f373460a3ef7902baf1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"user not found with id=615e2f373460a3ef7902baf1\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -246,6 +1184,151 @@
 							"header": null,
 							"cookie": [],
 							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"614b7deced98c3e7891ec4de"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get One",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7deced98c3e7891ec4de"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"_id\": \"614b7deced98c3e7891ec4de\",\n        \"name\": \"john\",\n        \"email\": \"potato@potate.com\",\n        \"birthday\": \"2019-08-21T00:00:00.000Z\",\n        \"phone\": \"+55(51)99455-6722\"\n    }\n}"
+						},
+						{
+							"name": "Get One Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7deced98c3e7891ec4de"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Get One Wrong Format",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/drftgyvbhjn",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"drftgyvbhjn"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"Cast to ObjectId failed for value \\\"drftgyvbhjn\\\" (type string) at path \\\"_id\\\" for model \\\"Students\\\"\"\n}"
+						},
+						{
+							"name": "Get One Wrong ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7defed98c3e7891ec4de",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7defed98c3e7891ec4de"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"student not found with id=614b7defed98c3e7891ec4de\"\n}"
 						}
 					]
 				},
@@ -426,151 +1509,6 @@
 					]
 				},
 				{
-					"name": "Get One",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{access_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"alunos",
-								"{{studentid}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Get One",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"{{studentid}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\n    \"data\": {\n        \"_id\": \"614b7deced98c3e7891ec4de\",\n        \"name\": \"john\",\n        \"email\": \"potato@potate.com\",\n        \"birthday\": \"2019-08-21T00:00:00.000Z\",\n        \"phone\": \"+55(51)99455-6722\"\n    }\n}"
-						},
-						{
-							"name": "Get One Unauthorized",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"{{studentid}}"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Get One Wrong Format",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/drftgyvbhjn",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"drftgyvbhjn"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\n    \"data\": \"Cast to ObjectId failed for value \\\"drftgyvbhjn\\\" (type string) at path \\\"_id\\\" for model \\\"Students\\\"\"\n}"
-						},
-						{
-							"name": "Get One Wrong ID",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/614b7deced98c3z7891ec4dz",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"614b7deced98c3z7891ec4dz"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\n    \"data\": \"student not found with id=614b7defed98c3e7891ec4de\"\n}"
-						}
-					]
-				},
-				{
 					"name": "Total Update",
 					"request": {
 						"method": "PUT",
@@ -591,7 +1529,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -599,7 +1537,7 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}"
+								"614b7deced98c3e7891ec4de"
 							]
 						}
 					},
@@ -625,7 +1563,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -633,7 +1571,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -650,7 +1588,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -658,7 +1596,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -690,7 +1628,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -698,7 +1636,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -730,14 +1668,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"api",
-										"alunos"
+										"alunos",
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -771,7 +1710,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -779,7 +1718,7 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}"
+								"614b7deced98c3e7891ec4de"
 							]
 						}
 					},
@@ -805,7 +1744,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -813,7 +1752,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -830,7 +1769,7 @@
 								"method": "PATCH",
 								"header": [],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -838,7 +1777,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -870,7 +1809,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -878,7 +1817,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -903,7 +1842,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -911,7 +1850,7 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}"
+								"614b7deced98c3e7891ec4de"
 							]
 						}
 					},
@@ -928,7 +1867,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -936,7 +1875,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -953,7 +1892,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -961,7 +1900,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -984,7 +1923,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/kkkkk",
+									"raw": "http://{{url}}/api/alunos/kll",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -992,7 +1931,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"kkkkk"
+										"kll"
 									]
 								}
 							},
@@ -1015,7 +1954,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/614b7deced98c3z7891ec4dz",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1023,7 +1962,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"614b7deced98c3z7891ec4dz"
+										"614b7deced98c3e7891ec4de"
 									]
 								}
 							},
@@ -1075,7 +2014,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -1083,7 +2022,7 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}",
+								"614b7deced98c3e7891ec4de",
 								"matriculas"
 							]
 						}
@@ -1105,7 +2044,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1113,7 +2052,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas"
 									]
 								}
@@ -1135,7 +2074,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1143,7 +2082,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas"
 									]
 								}
@@ -1154,6 +2093,166 @@
 							"header": null,
 							"cookie": [],
 							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"614b7deced98c3e7891ec4de",
+								"matriculas",
+								"614b8a902b8404587132d054"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get One",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7deced98c3e7891ec4de",
+										"matriculas",
+										"614b8a902b8404587132d054"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"data\": {\r\n        \"_id\": \"614b8a902b8404587132d054\",\r\n        \"semester\": \"5\",\r\n        \"classId\": \"614b8a902b8404587132d053\",\r\n        \"studentId\": \"614b8a882b8404587132d04f\"\r\n    }\r\n}"
+						},
+						{
+							"name": "Get One Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7deced98c3e7891ec4de",
+										"matriculas",
+										"614b8a902b8404587132d054"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Get One Wrong Format",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/fhcgvjkhbjnkm",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7deced98c3e7891ec4de",
+										"matriculas",
+										"fhcgvjkhbjnkm"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"data\": \"Cast to ObjectId failed for value \\\"fhcgvjkhbjnkm\\\" (type string) at path \\\"_id\\\" for model \\\"Enrolls\\\"\"\r\n}"
+						},
+						{
+							"name": "Get One Wrong ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b7defed98c3e7891ec4de",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"alunos",
+										"614b7deced98c3e7891ec4de",
+										"matriculas",
+										"614b7defed98c3e7891ec4de"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"data\": \"enroll not found with id=614b7defed98c3e7891ec4de and studentId=614b8a882b8404587132d04f\"\n}"
 						}
 					]
 				},
@@ -1178,7 +2277,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -1186,7 +2285,7 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}",
+								"614b7deced98c3e7891ec4de",
 								"matriculas"
 							]
 						}
@@ -1213,7 +2312,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1221,7 +2320,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas"
 									]
 								}
@@ -1248,7 +2347,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1256,7 +2355,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas"
 									]
 								}
@@ -1289,7 +2388,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1297,7 +2396,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas"
 									]
 								}
@@ -1330,7 +2429,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1338,7 +2437,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas"
 									]
 								}
@@ -1349,167 +2448,6 @@
 							"header": null,
 							"cookie": [],
 							"body": "{\n    \"errors\": [\n        {\n            \"value\": 5,\n            \"msg\": \"Invalid value\",\n            \"param\": \"semester\",\n            \"location\": \"body\"\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Get One",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{access_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"alunos",
-								"{{studentid}}",
-								"matriculas",
-								"{{enrollid}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Get One",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"{{studentid}}",
-										"matriculas",
-										"{{enrollid}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\r\n    \"data\": {\r\n        \"_id\": \"614b8a902b8404587132d054\",\r\n        \"semester\": \"5\",\r\n        \"classId\": \"614b8a902b8404587132d053\",\r\n        \"studentId\": \"614b8a882b8404587132d04f\"\r\n    }\r\n}"
-						},
-						{
-							"name": "Get One Unauthorized",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"{{studentid}}",
-										"matriculas",
-										"{{enrollid}}"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": null
-						},
-						{
-							"name": "Get One Wrong Format",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/fhcgvjkhbjnkm",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"{{studentid}}",
-										"matriculas",
-										"fhcgvjkhbjnkm"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\r\n    \"data\": \"Cast to ObjectId failed for value \\\"fhcgvjkhbjnkm\\\" (type string) at path \\\"_id\\\" for model \\\"Enrolls\\\"\"\r\n}"
-						},
-						{
-							"name": "Get One Wrong ID",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/614b7defed98c3e7891ec4de",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"alunos",
-										"{{studentid}}",
-										"matriculas",
-										"614b7defed98c3e7891ec4de"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\n    \"data\": \"enroll not found with id=614b7defed98c3e7891ec4de and studentId=614b8a882b8404587132d04f\"\n}"
 						}
 					]
 				},
@@ -1534,7 +2472,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -1542,9 +2480,9 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}",
+								"614b7deced98c3e7891ec4de",
 								"matriculas",
-								"{{enrollid}}"
+								"614b8a902b8404587132d054"
 							]
 						}
 					},
@@ -1570,7 +2508,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1578,9 +2516,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1606,7 +2544,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1614,9 +2552,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1648,7 +2586,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1656,9 +2594,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1690,7 +2628,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1698,9 +2636,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1734,7 +2672,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -1742,9 +2680,9 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}",
+								"614b7deced98c3e7891ec4de",
 								"matriculas",
-								"{{enrollid}}"
+								"614b8a902b8404587132d054"
 							]
 						}
 					},
@@ -1770,7 +2708,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1778,9 +2716,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1806,7 +2744,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1814,9 +2752,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1848,7 +2786,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1856,9 +2794,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1883,7 +2821,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+							"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -1891,9 +2829,9 @@
 							"path": [
 								"api",
 								"alunos",
-								"{{studentid}}",
+								"614b7deced98c3e7891ec4de",
 								"matriculas",
-								"{{enrollid}}"
+								"614b8a902b8404587132d054"
 							]
 						}
 					},
@@ -1910,7 +2848,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1918,9 +2856,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -1938,12 +2876,11 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "{{access_token}}",
-										"type": "text"
+										"value": "{{access_token}}"
 									}
 								],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/{{enrollid}}",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b8a902b8404587132d054",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -1951,9 +2888,9 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
-										"{{enrollid}}"
+										"614b8a902b8404587132d054"
 									]
 								}
 							},
@@ -2009,7 +2946,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://{{url}}/api/alunos/{{studentid}}/matriculas/614b7defed98c3e7891ec4de",
+									"raw": "http://{{url}}/api/alunos/614b7deced98c3e7891ec4de/matriculas/614b7defed98c3e7891ec4de",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -2017,7 +2954,7 @@
 									"path": [
 										"api",
 										"alunos",
-										"{{studentid}}",
+										"614b7deced98c3e7891ec4de",
 										"matriculas",
 										"614b7defed98c3e7891ec4de"
 									]
