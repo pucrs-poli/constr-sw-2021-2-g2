@@ -1,12 +1,14 @@
 # Primeiro trabalho da disciplina de Construção de Software
 
+Trabalho feito 85% por João Severo, 10% por Matheu Goes, 4% Marco Antonio, e divide o 1% nos outros dois que nem lembro quem são 
+
 Para executar:
 
 ```docker-compose up```
 
 O endereço onde fica localizado os documentos swagger é:
 
-/api-docs
+```http://<host>:3000/api-docs```
 
 Link de acesso a documentação:
 
