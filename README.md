@@ -2,7 +2,11 @@
 
 Para executar:
 
-docker-compose up
+```docker-compose up```
+
+O endereço onde fica localizado os documentos swagger é:
+
+/api-docs
 
 Link de acesso a documentação:
 
