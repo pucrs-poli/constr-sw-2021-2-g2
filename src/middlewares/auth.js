@@ -19,26 +19,27 @@ function validate(role) {
 
         let requestConfig = {
             method: 'GET',
-            url: `${config.keycloakURL}/realms/${config.keycloakRealm}/protocol/openid-connect/userinfo`,
+            url: `${config.keycloakURL}/realms/${config.keycloakRealm}/protocol/openid-connect/userinfo?clientSecret=${req.session.clientSecret}`,
             headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
                 Authorization: req.headers.authorization,
             },
         };
 
         return await axios(requestConfig)
             .then(val => {
-                if(role === ADMIN){
+                if (role === ADMIN) {
                     return next()
                 }
 
                 validate_user(val.data.preferred_username)
-                .then(result => {
-                    if(result){
-                        return next()
-                    }
-                    
-                    return res.status(401).json()
-                })
+                    .then(result => {
+                        if (result) {
+                            return next()
+                        }
+
+                        return res.status(401).json()
+                    })
 
             }).catch(_ => {
                 return res.status(401).json()

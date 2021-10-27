@@ -17,6 +17,7 @@ async function getToken(req, { username, password, grantType, clientId, clientSe
         req.session.logged = true
         req.session.grantType = grantType
         req.session.clientId = clientId
+        req.session.clientSecret = clientId
         req.session.accessToken = kcAdminClient.accessToken
         req.session.refreshToken = kcAdminClient.refreshToken
 
