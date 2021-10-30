@@ -1,15 +1,5 @@
 const axios = require('axios')
 const config = require('../config/env')
-const User = require('../models/user')
-
-
-const ADMIN = "admin"
-
-
-async function validate_user(username) {
-    let user = await User.findOne({ username })
-    return !!user && user.enabled
-}
 
 
 function validate(role) {
@@ -27,19 +17,12 @@ function validate(role) {
         };
 
         return await axios(requestConfig)
-            .then(val => {
-                if (role === ADMIN) {
-                    return next()
+            .then(_ => {
+                if (req.session.roles.includes(role)) {
+                    return next();
                 }
 
-                validate_user(val.data.preferred_username)
-                    .then(result => {
-                        if (result) {
-                            return next()
-                        }
-
-                        return res.status(401).json()
-                    })
+                return res.status(401).json()
 
             }).catch(_ => {
                 return res.status(401).json()

@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/',
     authHandler.validate('admin'),
-    async (req, res, _) => {
+    async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
@@ -22,12 +22,12 @@ router.get('/',
 router.get('/:id',
     authHandler.validate('admin'),
     param('id').isString(),
-    async (req, res, _) => {
+    async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
-        
+
         let { status, data } = await usersController.get(req.params.id)
         return res.status(status).json({ data })
     }
@@ -39,8 +39,8 @@ router.post('/',
     body('email').isString(),
     body('firstName').isString(),
     body('lastName').isString(),
-    body('emailVerified').isString(),
-    async (req, res, _) => {
+    body('emailVerified').isBoolean(),
+    async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
@@ -58,9 +58,9 @@ router.put('/:id',
     body('email').isString(),
     body('firstName').isString(),
     body('lastName').isString(),
-    body('emailVerified').isString(),
-    body('enabled').isString(),
-    async (req, res, _) => {
+    body('emailVerified').isBoolean(),
+    body('enabled').isBoolean(),
+    async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
@@ -74,19 +74,14 @@ router.put('/:id',
 router.patch('/:id',
     authHandler.validate('admin'),
     param('id').isString(),
-    body('username').isString().optional(),
-    body('email').isString().optional(),
-    body('firstName').isString().optional(),
-    body('lastName').isString().optional(),
-    body('emailVerified').isString().optional(),
-    body('enabled').isString().optional(),
-    async (req, res, _) => {
+    body('password').isString(),
+    async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
 
-        let { status, data } = await usersController.update(req.params.id, req.body)
+        let { status, data } = await usersController.resetPassword(req.params.id, req.body.password)
         return res.status(status).json({ data })
     }
 )
@@ -94,7 +89,7 @@ router.patch('/:id',
 router.delete('/:id',
     authHandler.validate('admin'),
     param('id').isString(),
-    async (req, res, _) => {
+    async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })

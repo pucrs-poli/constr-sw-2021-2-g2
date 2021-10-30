@@ -1,31 +1,29 @@
-const KeycloakAdminClient = require('@keycloak/keycloak-admin-client').default
-const config = require('../config/env')
+const keycloakAdminClient = require('../config/keycloak')
+const jwtDecoder = require('jwt-decode')
 
-const kcAdminClient = new KeycloakAdminClient({
-    baseUrl: config.keycloakURL,
-    realmName: config.keycloakRealm
-})
 
 async function getToken(req, { username, password, grantType, clientId, clientSecret }) {
-    return kcAdminClient.auth({
+    return keycloakAdminClient.auth({
         username,
         password,
         grantType,
         clientId,
         clientSecret
     }).then(_ => {
+        let accessToken = keycloakAdminClient.accessToken
+        let refreshToken = keycloakAdminClient.refreshToken
+
+        let decoded = jwtDecoder(accessToken)
+
+        req.session.accessToken = accessToken
+        req.session.roles = decoded.resource_access['node-client'].roles
         req.session.logged = true
-        req.session.grantType = grantType
-        req.session.clientId = clientId
-        req.session.clientSecret = clientId
-        req.session.accessToken = kcAdminClient.accessToken
-        req.session.refreshToken = kcAdminClient.refreshToken
 
         return {
             status: 200,
             data: {
-                accessToken: kcAdminClient.accessToken,
-                refreshToken: kcAdminClient.refreshToken
+                accessToken: accessToken,
+                refreshToken: refreshToken
             }
         }
     }).catch(error => {
