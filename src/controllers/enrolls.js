@@ -4,7 +4,7 @@ const config = require('../config/env')
 const studentsController = require('./students')
 
 
-const axiosInstance = require('axios').create({ baseUrl: config.classURL })
+const axios = require('axios');
 
 
 async function getAll(studentId, filters) {
@@ -24,16 +24,14 @@ async function get(studentId, id) {
         })
 }
 
-async function register(studentId, { semester, classId }) {
+async function register(studentId, accessToken, { semester, classId }) {
     let { status, data } = await studentsController.get(studentId)
     if (status !== 200)
         return { status, data }
 
-    // if (!checkClass(classId))
-    //     return { status: 404, data: `class not found with id=${classId}` }
-
-    // test code
-    classId = new ObjectID();
+    let { isValid, status, msg } = checkClass(accessToken, classId);
+    if (!isValid)
+        return { status: status, data: msg }
 
     return Enroll.create({ semester, studentId, classId })
         .then(_ => {
@@ -85,24 +83,21 @@ async function remove(studentId, id) {
 }
 
 
-async function checkClass(classId) {
-    let authParams = {
-        username: config.classUsername,
-        password: config.classPassword
-    }
-    let resp = await axios.post(`${config.classURL}/login`, authParams)
-    let cookie = resp.headers["set-cookie"][0]
-    axiosInstance.defaults.headers.Cookie = cookie
+async function checkClass(accessToken, classId) {
+    return await axios({
+        method: 'GET',
+        url: `${config.classURL}/class/${classId}`,
+        headers: {
+            'Authorization': accessToken
+        }
+    }).then(res => {
+        if (res.statusCode === 200)
+            return true, 200, 'successfully recovered class'
 
-    return await axiosInstance.get(`${config.classURL}/${classId}`, { responseType: 'json' })
-        .then(res => {
-            if (res.statusCode === 200)
-                return true
-            return false
-        })
-        .catch(_ => {
-            return false
-        })
+        return false, res.statusCode, res.data
+    }).catch(err => {
+        return false, err.response.statusCode, err.response.data
+    })
 }
 
 module.exports = { getAll, get, register, update, remove }
