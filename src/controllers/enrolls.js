@@ -24,7 +24,7 @@ async function get(studentId, id) {
         })
 }
 
-async function register(studentId, accessToken, { semester, classId }) {
+async function register(accessToken, studentId, { semester, classId }) {
     let { status, data } = await studentsController.get(studentId)
     if (status !== 200)
         return { status, data }
@@ -33,7 +33,7 @@ async function register(studentId, accessToken, { semester, classId }) {
     if (!isValid)
         return { status: status, data: msg }
 
-    return Enroll.create({ semester, studentId, classId })
+    return Enroll.create({ semester, studentId, classId: new ObjectID() })
         .then(_ => {
             return { status: 204 }
         })
@@ -45,16 +45,18 @@ async function register(studentId, accessToken, { semester, classId }) {
         })
 }
 
-async function update(studentId, id, updateDict) {
+async function update(accessToken, studentId, id, updateDict) {
     if (updateDict.studentId) {
         let { status, data } = await studentsController.get(updateDict.studentId)
         if (status !== 200)
             return { status, data }
     }
 
-    if (updateDict.classId && !(await checkClass(updateDict.classId)))
-        return { status: 404, data: `class not found with id=${updateDict.classId}` }
-
+    if (updateDict.classId) {
+        let { isValid, _, _ } = checkClass(accessToken, updateDict.classId);
+        if (!isValid)
+            return { status: 404, data: `class not found with id=${updateDict.classId}` }
+    }
 
     return Enroll.findOneAndUpdate({ studentId: ObjectID(studentId), _id: id }, updateDict, { new: true })
         .then(val => {
@@ -86,7 +88,7 @@ async function remove(studentId, id) {
 async function checkClass(accessToken, classId) {
     return await axios({
         method: 'GET',
-        url: `${config.classURL}/class/${classId}`,
+        url: `${config.classURL}/classes/${classId}`,
         headers: {
             'Authorization': accessToken
         }

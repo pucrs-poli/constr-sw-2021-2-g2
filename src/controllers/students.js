@@ -1,4 +1,5 @@
 const Student = require('../models/students')
+const Enrolls = require('../models/enrolls')
 
 
 async function getAll(filters) {
@@ -46,15 +47,19 @@ async function update(id, updateDict) {
 }
 
 async function remove(id) {
-    return Student.findOneAndRemove({ _id: id })
-        .then(val => {
-            if (val)
-                return { status: 204 }
-            return { status: 404, data: `student not found with id=${id}` }
-        })
-        .catch(err => {
-            return { status: 400, data: err.message }
-        })
+    try {
+
+        let result = await Student.findOneAndRemove({ _id: id })
+        if (result === null)
+            return { status: 404, data: 'User not found' }
+
+        await Enrolls.deleteMany({ studentId: id })
+
+        return { status: 204 }
+
+    } catch (err) {
+        return { status: 400, data: err.message }
+    }
 }
 
 module.exports = { getAll, get, register, update, remove }
