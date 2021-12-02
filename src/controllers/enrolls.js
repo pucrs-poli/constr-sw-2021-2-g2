@@ -88,18 +88,19 @@ async function remove(studentId, id) {
 async function checkClass(accessToken, classId) {
     return await axios({
         method: 'GET',
-        url: `${config.classURL}/classes/${classId}`,
+        url: `${config.classURL}/${classId}`,
         headers: {
             'Authorization': accessToken
         }
     }).then(res => {
-        if (res.statusCode === 200)
+        if (res.status === 200)
             return { isValid: true, classStatus: 200, msg: 'successfully recovered class' }
-
-        return { isValid: false, classStatus: res.statusCode, msg: res.data }
+        return { isValid: false, classStatus: res.status, msg: res.data }
     }).catch(err => {
+        console.log(config.classURL);
         if (err.response)
-            return { isValid: false, classStatus: err.response.statusCode, msg: err.response.data }
+            if (err.response.statusCode)
+                return { isValid: false, classStatus: err.response.statusCode, msg: err.response.data }
         return { isValid: false, classStatus: 500, msg: "class server not accessible" }
     })
 }

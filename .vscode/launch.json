@@ -14,8 +14,9 @@
             "program": "${workspaceFolder}\\index.js",
             "env": {
                 "SECRET": "446f0425-d0a6-47a5-916a-c9fb3cb42d66",
-                "DATABASE_URI": "mongodb://192.168.56.1:27017/construcao",
-                "API_URL": "192.168.56.1"
+                "DATABASE_URI": "mongodb://192.168.100.5:27017/construcao",
+                "API_URL": "localhost",
+                "CLASS_URL": "http://localhost:3333"
             }
         }
     ]
