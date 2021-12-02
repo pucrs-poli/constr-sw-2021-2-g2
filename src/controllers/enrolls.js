@@ -17,10 +17,10 @@ async function get(studentId, id) {
         .then(val => {
             if (val)
                 return { status: 200, data: val }
-            return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
+            return { status: 404, data: [{ msg: `enroll not found with id=${id} and studentId=${studentId}` }] }
         })
         .catch(err => {
-            return { status: 400, data: err.message }
+            return { status: 400, data: [{ msg: err.message }] }
         })
 }
 
@@ -29,9 +29,9 @@ async function register(accessToken, studentId, { semester, classId }) {
     if (status !== 200)
         return { status, data }
 
-    let { isValid, status, msg } = checkClass(accessToken, classId);
+    let { isValid, classStatus, msg } = await checkClass(accessToken, classId);
     if (!isValid)
-        return { status: status, data: msg }
+        return { status: classStatus, data: [{ msg }] }
 
     return Enroll.create({ semester, studentId, classId: new ObjectID() })
         .then(_ => {
@@ -39,9 +39,9 @@ async function register(accessToken, studentId, { semester, classId }) {
         })
         .catch(err => {
             if (err.code === 11000)
-                return { status: 400, data: 'duplicate entry' }
+                return { status: 400, data: [{ msg: 'duplicate entry' }] }
 
-            return { status: 400, data: err.message }
+            return { status: 400, data: [{ msg: err.message }] }
         })
 }
 
@@ -53,22 +53,22 @@ async function update(accessToken, studentId, id, updateDict) {
     }
 
     if (updateDict.classId) {
-        let { isValid, _, _ } = checkClass(accessToken, updateDict.classId);
+        let { isValid, _, ignored } = checkClass(accessToken, updateDict.classId);
         if (!isValid)
-            return { status: 404, data: `class not found with id=${updateDict.classId}` }
+            return { status: 404, data: [{ msg: `class not found with id=${updateDict.classId}` }] }
     }
 
     return Enroll.findOneAndUpdate({ studentId: ObjectID(studentId), _id: id }, updateDict, { new: true })
         .then(val => {
             if (val)
                 return { status: 204 }
-            return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
+            return { status: 404, data: [{ msg: `enroll not found with id=${id} and studentId=${studentId}` }] }
         })
         .catch(err => {
             if (err.code === 11000)
-                return { status: 400, data: 'duplicate entry' }
+                return { status: 400, data: [{ msg: 'duplicate entry' }] }
 
-            return { status: 400, data: err.message }
+            return { status: 400, data: [{ msg: err.message }] }
         })
 }
 
@@ -77,10 +77,10 @@ async function remove(studentId, id) {
         .then(val => {
             if (val)
                 return { status: 204 }
-            return { status: 404, data: `enroll not found with id=${id} and studentId=${studentId}` }
+            return { status: 404, data: [{ msg: `enroll not found with id=${id} and studentId=${studentId}` }] }
         })
         .catch(err => {
-            return { status: 400, data: err.message }
+            return { status: 400, data: [{ msg: err.message }] }
         })
 }
 
@@ -94,11 +94,13 @@ async function checkClass(accessToken, classId) {
         }
     }).then(res => {
         if (res.statusCode === 200)
-            return true, 200, 'successfully recovered class'
+            return { isValid: true, classStatus: 200, msg: 'successfully recovered class' }
 
-        return false, res.statusCode, res.data
+        return { isValid: false, classStatus: res.statusCode, msg: res.data }
     }).catch(err => {
-        return false, err.response.statusCode, err.response.data
+        if (err.response)
+            return { isValid: false, classStatus: err.response.statusCode, msg: err.response.data }
+        return { isValid: false, classStatus: 500, msg: "class server not accessible" }
     })
 }
 

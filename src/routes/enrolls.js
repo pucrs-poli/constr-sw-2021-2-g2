@@ -15,11 +15,11 @@ router.get('/',
     async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json(errors.array())
         }
 
         let { status, data } = await enrollsController.getAll(req.params.studentId, req.query)
-        return res.status(status).json({ data })
+        return res.status(status).json(data)
     }
 )
 
@@ -31,11 +31,11 @@ router.get('/:id',
     async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json(errors.array())
         }
 
         let { status, data } = await enrollsController.get(req.params.studentId, req.params.id)
-        return res.status(status).json({ data })
+        return res.status(status).json(data)
     }
 )
 
@@ -48,7 +48,7 @@ router.post('/',
     async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json(errors.array())
         }
 
         let { status, data } = await enrollsController.register(
@@ -57,7 +57,7 @@ router.post('/',
             req.body
         )
 
-        return res.status(status).json({ data })
+        return res.status(status).json(data)
     }
 )
 
@@ -72,7 +72,7 @@ router.put('/:id',
     async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json(errors.array())
         }
 
         let { status, data } = await enrollsController.update(
@@ -81,7 +81,7 @@ router.put('/:id',
             req.params.id,
             req.body
         )
-        return res.status(status).json({ data })
+        return res.status(status).json(data)
     }
 )
 
@@ -96,11 +96,11 @@ router.patch('/:id',
     async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json(errors.array())
         }
 
         let { status, data } = await enrollsController.update(req.params.studentId, req.params.id, req.body)
-        return res.status(status).json({ data })
+        return res.status(status).json(data)
     }
 )
 
@@ -112,11 +112,11 @@ router.delete('/:id',
     async(req, res, _) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json(errors.array())
         }
 
         let { status, data } = await enrollsController.remove(req.params.studentId, req.params.id)
-        return res.status(status).json({ data })
+        return res.status(status).json(data)
     }
 )
 
