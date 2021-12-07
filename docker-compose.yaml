@@ -17,7 +17,7 @@ services:
       - SECRET=245770ea-c13c-4dd5-b1d5-27467d7a231e
       - DATABASE_URI=mongodb://mongodb:27017/construcao
       - API_URL=api
-      - CLASS_URL=http://192.168.100.5:3333/turma
+      - CLASS_URL=http://<<<host>>>:3333/turma
     ports:
       - "3000:3000"
     command: bash -c "npm install -g n && n 12.13.0 && n which 12.13.0 && n prune && npm install && npm start"

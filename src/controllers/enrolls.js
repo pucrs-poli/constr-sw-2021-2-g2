@@ -53,7 +53,7 @@ async function update(accessToken, studentId, id, updateDict) {
     }
 
     if (updateDict.classId) {
-        let { isValid, _, ignored } = checkClass(accessToken, updateDict.classId);
+        let { isValid, _, ignored } = await checkClass(accessToken, updateDict.classId);
         if (!isValid)
             return { status: 404, data: [{ msg: `class not found with id=${updateDict.classId}` }] }
     }

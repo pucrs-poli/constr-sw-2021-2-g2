@@ -99,7 +99,7 @@ router.patch('/:id',
             return res.status(422).json(errors.array())
         }
 
-        let { status, data } = await enrollsController.update(req.params.studentId, req.params.id, req.body)
+        let { status, data } = await enrollsController.update("", req.params.studentId, req.params.id, req.body)
         return res.status(status).json(data)
     }
 )
