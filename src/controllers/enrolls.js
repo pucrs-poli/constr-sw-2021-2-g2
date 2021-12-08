@@ -33,7 +33,7 @@ async function register(accessToken, studentId, { semester, classId }) {
     if (!isValid)
         return { status: classStatus, data: [{ msg }] }
 
-    return Enroll.create({ semester, studentId, classId: new ObjectID() })
+    return Enroll.create({ semester, studentId: ObjectID(studentId), classId: ObjectID(classId) })
         .then(_ => {
             return { status: 204 }
         })
@@ -56,6 +56,8 @@ async function update(accessToken, studentId, id, updateDict) {
         let { isValid, _, ignored } = await checkClass(accessToken, updateDict.classId);
         if (!isValid)
             return { status: 404, data: [{ msg: `class not found with id=${updateDict.classId}` }] }
+        
+        updateDict.classId = ObjectID(updateDict.classId);
     }
 
     return Enroll.findOneAndUpdate({ studentId: ObjectID(studentId), _id: id }, updateDict, { new: true })
